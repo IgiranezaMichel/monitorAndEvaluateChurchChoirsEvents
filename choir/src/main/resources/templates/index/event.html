@@ -1,0 +1,122 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(252, 252, 253, 0.767),rgba(41, 64, 165, 0.596)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+              <nav style="background-color: rgba(41, 64, 165, 0.699);"  id="sidebar" class="text-dark border-right text-left">
+                <div class="custom-menu">
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                        <i class="fa fa-bars"></i>
+                        <span class="sr-only">Toggle Menu</span>
+                    </button>
+                </div>
+            <div class="p-4">
+              <h5 class="text-center">
+                <div class="text-center">
+                    <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                </div>
+                <span th:text="${user.name}">Portfolio Agency</span></a>
+              </h5>
+              <ul class="list-unstyled components mb-5">
+                <li class=" border-bottom  sidebar" >
+                  <a class="text-light fw-bolder text-left" th:href="@{'/user/home'}"><i class="fa fa-home mr-3"></i> DashBoard</a>
+                </li>
+                <li class=" border-bottom  sidebar" style="background: #452799b6;">
+                <a class="text-light fw-bolder text-left" th:href="@{'/user/event'}"><i class="fa fa-life-ring mr-3" aria-hidden="true"></i></span>Event</a>
+                </li>
+                <li class=" border-bottom   sidebar">
+                  <a class="text-light fw-bolder text-left" th:href="@{'/user/announcement'}"><i class="fa fa-calendar-check-o mr-3" aria-hidden="true"></i> Announcement</a>
+                  </li>
+                <li  class=" border-bottom   sidebar">
+                <a class="text-light fw-bolder text-left" th:href="@{'/user/choir'}"> <i class="fa fa-music mr-3" aria-hidden="true"></i> Choirs</a>
+                </li>  
+                <li  class=" border-bottom   sidebar">
+                  <a class="text-light fw-bolder text-left" th:href="@{'/user/membership'}"><i class="fa fa-pencil mr-3" aria-hidden="true"></i>  Membership</a>
+                  </li> 
+                  <li  class=" border-bottom  sidebar">
+                      <a class="text-light fw-bolder text-left" th:href="@{'/user/account'}"><i class="fa fa-user-circle-o mr-3" aria-hidden="true"></i> Account</a>
+                      </li> 
+                <li class="border-bottom  sidebar">
+                <a class="text-light fw-bolder text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                </li>
+              </ul>
+      </div>
+    </nav>
+    
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <h2 class="mb-4"><span th:text="${user.church.name}"></span> Events</h2>
+            <section class="row">
+                <div class="card text-white col-md-6 bg-transparent border-0 mb-1" th:each="event :${eventpage.getContent()}" >
+                    <div class="card-body rounded mb-3 border-light " style="background-color: rgba(41, 64, 165, 0.596);">
+                      <h4 class="card-title" th:text="${event.title}">Event name</h4>
+                      <p class="card-text"><i class="fa fa-map-marker" aria-hidden="true"></i> <b th:text="${event.address}"></b> </p>
+                      <p class="card-text" ><i class="fa fa-calendar-check-o" aria-hidden="true"></i>  <span th:text="${event.startDate}"></span>
+                      </p>
+                      <p class="card-text"><i class="fa fa-calendar-times-o" aria-hidden="true"></i>  <span th:text="${event.endDate}"></span></p>
+                      <div class="text-center">
+                        <button onclick="getDetail(this)" th:id="${event.participant}+'&'+${event.description}" type="button" class="btn btn-light btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalId">More</button>
+                    </div>
+                  </div>
+               </div>
+           </section>
+
+          </div>
+           <script>
+            function getDetail(button) {
+              var data=button.getAttribute('id').split('&');
+               document.getElementById('participant').innerHTML=data[0];
+               document.getElementById('description').innerHTML=data[1];
+            }
+           </script>
+            </div>
+        </div>
+<!-- modals -->
+
+
+<!-- Modal Body -->
+<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+<div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="modalTitleId"></h5>
+          <button class="btn-outline-danger rounded-pill fs-1 fw-bolder border-0 btn-light" type="button"  data-bs-dismiss="modal" aria-label="Close">X</button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <nav><b>Participant</b></nav>
+          <nav id="participant"></nav>
+        </div>
+        <div>
+          <nav><b>Description</b></nav>
+          <nav id="description"></nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Optional: Place to the bottom of scripts -->
+<script>
+  const myModal = new bootstrap.Modal(document.getElementById('modalId'), options)
+
+</script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

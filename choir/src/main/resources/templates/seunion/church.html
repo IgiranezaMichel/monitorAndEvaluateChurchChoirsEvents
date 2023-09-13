@@ -1,0 +1,371 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		<script defer th:src="@{'../../chart/index.js'}"></script>
+    <script defer th:src="@{'../../chart/demo.js'}"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+		<style>
+			.sidebar:hover{
+				color: white;
+				background-color: #151818;background-image: linear-gradient(#a09718, #14961bb6);
+				transition: all 0.5s linear;
+                animation: sidebar 0.01s ease-in-out 1;
+			}
+			@keyframes sidebar {
+				from{background-image: linear-gradient( #a4b92a, #2fb140d5 );}
+				to{background-image: linear-gradient( #8d8f22, #0d5f0d);}
+			}
+		</style>
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(29, 139, 57, 0.767),rgba(236, 234, 65, 0.596)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+                <nav style="background-color: rgba(9, 87, 16, 0.945);"  id="sidebar" class="text-dark border-right text-left">
+                        <div class="custom-menu">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle Menu</span>
+                            </button>
+                        </div>
+                    <div class="p-4">
+                      <h1 class="text-center">
+                        <div class="text-center">
+                            <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                        </div>
+                        <span th:text="${seunion.name}">Portfolio Agency</span></a>
+                      </h1>
+                      <ul class="list-unstyled components mb-5">
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/union/home'}"><span class="fa fa-home mr-3"></span> DashBoard</a>
+                        </li>
+                        <li class=" border-bottom  sidebar" style="background: #033b03;">
+                          <a class="text-light text-left" th:href="@{'/union/church'}"><i class="fa fa-home mr-3"></i>Manage Church</a>
+                        </li>
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/union/choir'}"><i class="fa fa-music" aria-hidden="true"></i>  choir</a>
+                        </li>
+                        <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/union/event'}"><i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>Event</a>
+                            </li>
+                        <li class=" border-bottom   sidebar" >
+                          <a class="text-light text-left" th:href="@{'/union/announcement'}"> <i class="fa fa-ship" aria-hidden="true"></i> Announcement</a>
+                          </li>
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/union/finance'}"><i class="fa fa-dollar mr-3" aria-hidden="true"></i> Finance</a>
+                          </li>
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/union/user'}"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i> User</a>
+                      </li>
+                      <li class=" border-bottom   sidebar">
+                        <a class="text-light text-left" th:href="@{'/union/feedback'}"><i class="fa fa-feed" aria-hidden="true"></i>  Feedback</a>
+                        </li>
+                      <li  class=" border-bottom sidebar">
+                        <a class="text-light text-left" th:href="@{'/union/account'}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Account</a>
+                        </li> 
+                      <li class="border-bottom  sidebar">
+                      <a class="text-light text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                      </li>
+                    </ul>
+              </div>
+            </nav>
+    
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <div class="text-center">
+                <img th:src="@{'/images/logo.png'}" class="bg-light rounded-pill p-1" width="50" style="float: right;">
+            </div>
+            <div ><h2 class="mb-2 mb-3">RUM church management</h2></div>
+    <section class="mb-2">
+        <div class="bg-light col-md-12 row m-auto rounded p-3 ">
+          <div class="col-md-4">
+           <h5>Number of Field  <span class="badge rounded-pill bg-primary">
+            <span th:text="${fieldPage.size()}"></span></span></h5> 
+          </div>
+          <div class="col-md-4">
+            <h5>Number of Districts <span class="badge rounded-pill bg-primary">
+                <span th:text="${districtList.size()}"></span></span></h5> 
+           </div>
+           <div class="col-md-4">
+             <h5>Number of Churches <span class="badge rounded-pill bg-primary">
+                <span th:text="${churchList.size()}"></span></span></h5> 
+           </div>
+        </div>  
+    </section>
+           <!-- Header -->
+    <div class="col-sm-6 row bg-light mx-1 p-3 rounded">
+       <div class="col-sm-4 text-center">
+        <nav class="fw-bolder">Field</nav>
+        <i class="fa fa-plus-circle text-dark" data-bs-toggle="modal" data-bs-target="#modalId" style="font-size: xx-large;" aria-hidden="true"></i>
+       </div>
+       <div class="col-sm-4 text-center">
+        <nav class="fw-bolder">District</nav>
+        <i class="fa fa-plus-circle text-dark" data-bs-toggle="modal" data-bs-target="#district" style="font-size: xx-large;" aria-hidden="true"></i>
+       </div>
+       <div class="col-sm-4 text-center">
+        <nav class="fw-bolder">Church</nav>
+        <i class="fa fa-plus-circle text-dark" data-bs-toggle="modal" data-bs-target="#church" style="font-size: xx-large;" aria-hidden="true"></i>
+       </div> 
+    </div>
+     <section>
+        <div class="container mt-5">
+            <table class="table table-striped-columns
+            table-hover	
+            table-borderless
+            table-primary
+            align-middle">
+              <thead>
+                <tr>
+                    <th scope="col">Church Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Type</th>
+                </tr>
+              </thead>
+              <tbody th:each="church:${fieldPage}">
+                <tr  data-bs-toggle="collapse" th:data-bs-target="'#category'+${church.id}" aria-expanded="false" aria-controls="category1">
+                  <th scope="row" th:text="${church.name}"></th>
+                  <td>
+                    <div>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i> <span th:text="${church.location}"></span>
+                    </div>
+                    <div class="text-center">
+                        <i class="fa fa-caret-down" style="font-size: xx-large;" aria-hidden="true"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                        <span th:text="${church.type}"></span>
+                    </div>
+                    <div>
+                        <b>Total District</b> <span th:text="${church.churchList.size()}"></span>
+                    </div>
+                  </td>
+                 
+                </tr>
+                <tr th:id="category+${church.id}" class="collapse" data-bs-toggle="collapse" th:data-bs-target="'#category2'+${church.id}">
+                  <td colspan="4" class="table-light">
+                    <table class="table">
+                      <thead>
+                        <tr >
+                            <th scope="col">Church Name</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Type</th>
+                        </tr>
+                      </thead>
+                      <tbody th:each="church1:${church.churchList}">
+                        <tr >
+                            <th scope="row" th:text="${church1.name}"></th>
+                            <td>
+                                <i class="fa fa-map-marker" aria-hidden="true"></i> <span th:text="${church1.location}"></span>
+                                <div class="text-center">
+                                    <i class="fa fa-caret-down" style="font-size: xx-large;" aria-hidden="true"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span th:text="${church1.type}"></span>
+                                </div>
+                                <div>
+                                    <b>Total Churches</b> <span th:text="${church1.churchList.size()}"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <!--  -->
+                        <tr th:id="'category2'+${church.id}" class="collapse table-danger" >
+                            <td colspan="4">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Church Name</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Type</th>
+                                  </tr>
+                                </thead>
+                                <tbody th:each="church2:${church1.churchList}">
+                                  <tr >
+                                    <th scope="row" th:text="${church2.name}">1-1</th>
+                                    <td >
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i><span th:text="${church2.location}"></span>
+                                    </td>
+                                    <td >
+                                        <div>
+                                            <i class="fa fa-home" aria-hidden="true"></i> <span th:text="${church2.type}"></span>
+                                        </div>
+                                        <div>
+                                            <b>Church Member</b> <span th:text="${church2.userList.size()}"></span>
+                                        </div>
+                                    </td>
+                                  </tr>
+                     
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <!-- Add more categories as needed -->
+              </tbody>
+            </table>
+          </div>
+        
+     </section>
+          </div>
+        </div>
+        </div>
+        <!-- modal -->
+    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Create Field</h5>
+                        <button type="button" class="fa fa-close btn-outline-danger border-0 p-1 rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   <form action="/union/church" method="post">
+                    <div class="mb-3">
+                        <input type="hidden" name="type" value="FIELD">
+                        <label>Field Name</label>
+                        <input class="w-100 rounded" type="text" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label>Location</label>
+                        <input class="w-100 rounded" type="text" name="location">
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                   </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="district" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Create District</h5>
+                        <button type="button" class="fa fa-close btn-outline-danger border-0 p-1 rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   <form action="/union/church" method="post">
+                    <div class="mb-3">
+                        <input type="hidden" name="type" value="DISTRICT">
+                        <label>District Name</label>
+                        <input class="w-100 rounded" type="text" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label>Location</label>
+                        <input class="w-100 rounded" type="text" name="location">
+                    </div>
+                    <div class="mb-3">
+                        <label>Select field</label>
+                      <select class="form-select w-100 rounded p-1" name="churchId" required>
+                        <option value="">--select field--</option>
+                        <option th:each="church:${fieldPage}" th:if="${church.type.equals('FIELD')}" th:text="${church.name}" th:value="${church.id}">One</option>
+                      </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                   </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- church -->
+    <div class="modal fade" id="church" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Create Church</h5>
+                        <button type="button" class="fa fa-close btn-outline-danger border-0 p-1 rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/union/church" method="post">
+                        <div class="mb-3">
+                            <input type="hidden" name="type" value="CHURCH">
+                            <label>Church Name</label>
+                            <input class="w-100 rounded" type="text" name="name">
+                        </div>
+                        <div class="mb-3">
+                            <label>Location</label>
+                            <input class="w-100 rounded" type="text" name="location">
+                        </div>
+                        <div class="mb-3">
+                            <label>Select district</label>
+                          <select class="form-select w-100 rounded p-1" name="churchId" required>
+                            <option value="">--select district--</option>
+                            <option th:each="church:${districtList}"  th:text="${church.name}" th:value="${church.id}">One</option>
+                          </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                       </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- add leader -->
+    <div class="modal fade" id="leader" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Add or Update leader</h5>
+                        <button type="button" class="fa fa-close btn-outline-danger border-0 rounded-pill p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="mb-3">
+                          <label for="input1" class="form-label">Email address</label>
+                          <input type="email" class="form-control border border-dark" id="input1" aria-describedby="Enter email address">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+<!-- delete church-->
+<div class="modal fade" id="del" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title " id="modalTitleId"></h5>
+                    <button type="button" class="fa fa-close btn-outline-danger border-0 rounded-pill p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <i class="fa fa-trash text-danger d-block text-center" style="font-size: xx-large;" aria-hidden="true"></i>
+                <form action="" method="post">
+                Are you sure you want to delete this
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger">Delete </button>
+                    </div>
+                </form>
+            </div>
+          
+        </div>
+    </div>
+</div>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

@@ -1,0 +1,196 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+		<style>
+			.sidebar:hover{
+				color: white;
+				background-color: #151818;background-image: linear-gradient(#1843a0, #fefffeb6);
+				transition: all 0.5s linear;
+                animation: sidebar 0.01s ease-in-out 1;
+			}
+			@keyframes sidebar {
+				from{background-image: linear-gradient(rgba(13, 30, 126, 0.945), #ffffff79 );}
+				to{background-image: linear-gradient( #225a8f, #ffffff96);}
+			}
+		</style>
+    <script defer th:src="@{'../../chart/index.js'}"></script>
+    <script defer th:src="@{'../../chart/demo.js'}"></script>
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(13, 30, 126, 0.945),rgba(255, 255, 255, 0.932)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+                <nav style="background-color: rgba(13, 30, 126, 0.945);"  id="sidebar" class="text-dark border-right text-left">
+                        <div class="custom-menu">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle Menu</span>
+                            </button>
+                        </div>
+                    <div class="p-4">
+                      <h1 class="text-center">
+                        <div class="text-center">
+                            <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                        </div>
+                        <span th:text="${choirAdmin.name}">Portfolio Agency</span></a>
+                      </h1>
+                        <ul class="list-unstyled components mb-5">
+                          <li class=" border-bottom  sidebar">
+                              <a class="text-light text-left" th:href="@{'/choir/home'}"><span class="fa fa-home mr-3"></span> DashBoard</a>
+                          </li>
+                          <!-- <li class=" border-bottom   sidebar">
+                              <a class="text-light text-left" th:href="@{'/choir/repetoir'}"><i class="fa fa-calendar-o mr-3" aria-hidden="true"></i> Reptoir</a>
+                              </li> -->
+                            <li class=" border-bottom   sidebar">
+                              <a class="text-light text-left" th:href="@{'/choir/event'}"><i class="fa fa-google-plus-official mr-3" aria-hidden="true"></i> Event</a>
+                              </li>
+                          <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/choir/finance'}"><i class="fa fa-dollar mr-3" aria-hidden="true"></i> Finance</a>
+                            </li>
+                          <li class=" border-bottom  sidebar">
+                              <a class="text-light text-left" th:href="@{'/choir/user'}"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i> User</a>
+                        </li>
+                        <li class=" border-bottom   sidebar" style="background-color: #071a44;">
+                          <a class="text-light text-left" th:href="@{'/choir/membership'}"><i class="fa fa-user-plus mr-3" aria-hidden="true"></i> Membership Request</a>
+                          </li>
+                        
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/choir/announcement'}"><i class="fa fa-paint-brush mr-3" aria-hidden="true"></i> Announcement</a>
+                          </li>
+                          <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/choir/feedback'}"><i class="fa fa-feed" aria-hidden="true"></i> Feedback</a>
+                            </li>
+                        <li  class=" border-bottom sidebar">
+                          <a class="text-light text-left" th:href="@{'/choir/account'}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Account</a>
+                          </li> 
+                        <li class="border-bottom  sidebar">
+                        <a class="text-light text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                        </li>
+                      </ul>
+              </div>
+            </nav>
+    
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <div class="text-center">
+                <img th:src="@{'/images/logo.png'}" class="bg-light rounded-pill p-1" width="50" style="float: right;">
+            </div>
+            <div ><h2 class="mb-2 mb-3 text-light"><span th:text="${choirAdmin.choir.name }"></span>'s Membership Dashboard </h2></div>
+    <section class="mb-2">
+        <div class="bg-light col-md-12 m-auto rounded p-3 ">
+          <h5><b class="text-primary">Church name</b>  <span th:text="${choirAdmin.church.name}"></span></h5>
+          <!-- <canvas class="col-sm-9" id="employee"></canvas> -->
+        </div>
+    </section>
+           <!-- Header -->
+           <div class="alert alert-primary alert-dismissible fade show" role="alert" th:if="${!Message.equals('')}">
+             <button type="button" class="fa fa-close border-0 p-1 rounded-pill btn-outline-danger" data-bs-dismiss="alert" aria-label="Close"></button>
+             <strong th:text="${Message}">Alert Heading</strong>
+           </div>          
+    <section class="m-auto">
+      <div class="table-responsive">
+        <table class="table table-striped
+        table-hover	
+        table-borderless
+        table-primary
+        align-middle">
+          <thead class="table-light">
+            <caption>Table Name</caption>
+            <tr>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Contact Detail</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr class="table-primary" th:each="membership:${membershipList}" th:class="${membership.isApprovedByChoirPresident}?'table-warning':'table-primary'">
+                <td scope="row" th:text="${membership.user.name}">Item</td>
+                <td th:text="${membership.user.gender}">Item</td>
+                <td>
+                  <div><i class="fa fa-phone-square" aria-hidden="true"></i> <span th:text="${membership.user.phoneNumber}"></span></div>
+                  <div>
+                    <i class="fa fa-envelope-square" aria-hidden="true"></i> <span th:text="${membership.user.email}"></span>
+                  </div>
+                </td>
+                <td>
+                  <i th:id="${membership.id}+'&'+${membership.user.name}" data-bs-toggle="modal" data-bs-target="#modalId" onclick="getDetail(this)" class="fa fa-check-circle-o mr-2" style="font-size: x-large;"  aria-hidden="true"></i>
+                  <i th:id="${membership.id}+'&'+${membership.user.name}" onclick="getDetail(this)" class="fa fa-trash-o" data-bs-toggle="modal" data-bs-target="#del" style="font-size: x-large;" aria-hidden="true"></i>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              
+            </tfoot>
+        </table>
+      </div>
+        
+    </section>
+          </div>
+           
+            </div>
+        </div>
+        <script>
+          function getDetail(data) {
+            const detail=data.getAttribute("id").split('&');
+            document.getElementById('name').innerHTML=detail[1];
+            document.getElementById('id').value=detail[0];
+            document.getElementById('name1').innerHTML=detail[1];
+            document.getElementById('id1').value=detail[0];
+          }
+        </script>
+    <!-- model -->
+    <section>
+      <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-success border-0 fw-bolder">
+              <h5 class="modal-title text-light" id="modalTitleId">Approve Membership</h5>
+                <button type="button" class="fa fa-close border-0 rounded-pill btn-outline-danger p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/choir/membership/true" method="post">
+                <input type="hidden" name="id" id="id">
+                Are you sure you want to approve <b class="mark fw-bolder"  id="name"></b>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-outline-success">Approve Membership</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="del" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-danger border-0 fw-bolder">
+              <h5 class="modal-title text-light" id="modalTitleId">Deny Membership</h5>
+                <button type="button" class="fa fa-close border-0 rounded-pill btn-outline-danger p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/choir/membership/false" method="post">
+                <input type="hidden" name="id" id="id1">
+                Are you sure you want to Deny <b class="mark fw-bolder"  id="name1"></b>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-outline-danger">Deny Membership</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

@@ -1,0 +1,381 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		<script defer th:src="@{'../../chart/index.js'}"></script>
+    <script defer th:src="@{'../../chart/demo.js'}"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+		<style>
+			.sidebar:hover{
+				color: white;
+				background-color: #151818;background-image: linear-gradient(#a09718, #14961bb6);
+				transition: all 0.5s linear;
+                animation: sidebar 0.01s ease-in-out 1;
+			}
+			@keyframes sidebar {
+				from{background-image: linear-gradient( #a4b92a, #2fb140d5 );}
+				to{background-image: linear-gradient( #8d8f22, #0d5f0d);}
+			}
+		</style>
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(29, 139, 57, 0.767),rgba(236, 234, 65, 0.596)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+                <nav style="background-color: rgba(9, 87, 16, 0.945);"  id="sidebar" class="text-dark border-right text-left">
+                        <div class="custom-menu">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle Menu</span>
+                            </button>
+                        </div>
+                    <div class="p-4">
+                      <h1 class="text-center">
+                        <div class="text-center">
+                            <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                        </div>
+                        <span th:text="${churchAdmin.name}">Portfolio Agency</span></a>
+                      </h1>
+                      <ul class="list-unstyled components mb-5">
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/church/home'}"><span class="fa fa-home mr-3"></span> DashBoard</a>
+                        </li>
+                        <li class=" border-bottom  sidebar" style="background-color: #042504;">
+                            <a class="text-light text-left" th:href="@{'/church/choir'}"><i class="fa fa-music" aria-hidden="true"></i>  Choir</a>
+                        </li>
+                        <li class=" border-bottom  sidebar">
+                          <a class="text-light text-left" th:href="@{'/church/membership'}"><i class="fa fa-users" aria-hidden="true"></i>  Choir membership</a>
+                      </li>
+                        <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/church/event'}"><i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>Event</a>
+                            </li>
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/church/announcement'}"> <i class="fa fa-ship" aria-hidden="true"></i> Announcement</a>
+                          </li>
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/church/finance'}"><i class="fa fa-dollar mr-3" aria-hidden="true"></i> Finance</a>
+                          </li>
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/church/user'}"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i> User</a>
+                      </li>
+                      <li class=" border-bottom   sidebar">
+                        <a class="text-light text-left" th:href="@{'/church/feedback'}"><i class="fa fa-feed" aria-hidden="true"></i>  Feedback</a>
+                        </li>
+                      <li  class=" border-bottom sidebar">
+                        <a class="text-light text-left" th:href="@{'/church/account'}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Account</a>
+                        </li> 
+                      <li class="border-bottom  sidebar">
+                      <a class="text-light text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                      </li>
+                    </ul>
+              </div>
+                </nav>   
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <div class="text-center">
+                <img th:src="@{'/images/logo.png'}" class="bg-light rounded-pill p-1" width="50" style="float: right;">
+            </div>
+            <i class="fa fa-dashboard text-dark" style="font-size: xx-large;" aria-hidden="true"></i>
+            <div ><h2 class="mb-2 mb-3"><span th:text="${churchAdmin.church.name }"></span>'s Choir </h2></div>
+    <section class="mb-2">
+        <div class="bg-light col-md-12 m-auto row rounded p-3 ">
+          <div class="col-md-6">
+            <h5><b class="text-primary">Total choir member</b>  <span th:text="${totalchoirmember.size()}"></span></h5>
+          </div>
+          <div class="col-md-6">
+            <h5><b class="text-primary">Total Choir member</b>  <span th:text="${totalchoirmember.size()}"></span></h5>
+          </div>
+        </div>  
+    </section>
+    <i class="fa fa-plus-circle text-light" style="font-size: xx-large;" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#add"></i>
+           <!-- Header -->
+    
+<section class="mt-5">
+  <div class="table-responsive-md">
+   <table class="table table-striped-columns
+   table-hover	
+   table-borderless
+   table-primary
+   align-middle">
+       <thead>
+           <tr>
+            <th> <i class="fa fa-users" aria-hidden="true"></i> Name</th>
+            <th>History</th>
+            <th><i class="fa fa-user" aria-hidden="true"></i> Leader</th>
+            <th><i class="fa fa-calendar" aria-hidden="true"></i> Start Date</th>
+            <th><i class="fa fa-users" aria-hidden="true"></i> Total member</th>
+            <th>Action</th>
+           </tr>
+         </thead>
+         <tbody th:each="choir:${choirpage.getContent()}" style="cursor: pointer;">
+           <tr data-bs-toggle="collapse" th:data-bs-target="'#category'+${choir.id}" aria-expanded="false" ariad>
+            <td scope="row" th:text="${choir.name}">Item</td>
+            <td th:text="${choir.history}">Item</td>
+            <td >
+              <div th:if="${choir.leader!=null}">
+                <div><i class="fa fa-user-circle" aria-hidden="true"></i> <span th:text="${choir.leader.name}"></span></div>
+              <div><i class="fa fa-phone-square" aria-hidden="true"></i> <span th:text="${choir.leader.phoneNumber}"></span></div>
+              <div><i class="fa fa-envelope-square" aria-hidden="true"></i> <span th:text="${choir.leader.email}"></span></div> 
+              </div>
+              <div th:if="${choir.leader==null}">
+                <i class="fa fa-battery-empty" style="font-size: x-large;" aria-hidden="true"></i>
+              </div>
+              <div>
+                <i class="fa fa-caret-down" style="font-size: xx-large;float: right;" aria-hidden="true"></i>
+              </div>
+            </td>
+            <td th:text="${choir.startDate}">Item</td>
+            <td th:text="${choir.users.size()}"></td>
+            <td>
+              <i class="fa fa-trash text-danger m-1" style="font-size: x-large;" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#delete"></i>
+              <i onclick="getDetail(this)" th:id="${choir.id}+'&'+${choir.name}+'&'+${choir.history}" class="fa fa-pencil text-primary m-1" style="font-size: x-large;" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#update"></i>
+              
+            </td>
+           </tr>
+           <tr th:id="'category'+${choir.id}" class="collapse" >
+             <td colspan="6" class="table table-light table-responsive-md">
+               <table class="table">
+                 <thead>
+                   <tr class="table-success">
+                     <th scope="col">User name</th>
+                     <th scope="col">Gender</th>
+                     <th scope="col">Contact Detail</th>
+                     <th>Action</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr th:each="user:${choir.users}">
+                     <td scope="row" th:text="${user.name}"></td>
+                     <td th:text="${user.gender}"></td>
+                     <td>
+                        <nav><i class="fa fa-phone-square" aria-hidden="true"></i> <span th:text="${user.phoneNumber}"></span></nav>
+                        <nav><i class="fa fa-envelope-square" aria-hidden="true"></i> <span th:text="${user.email}"></span></nav>
+                     </td>
+                     <td>
+                      <div th:if="${!user.role.equals('ROLE_CHOIR')}">
+                        <i onclick="getUserDetail(this)" th:id="${user.id}+'$#'+${user.name}" class="fa fa-gavel" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#addpresident"></i>
+                       </div>
+                       <div th:if="${user.role.equals('ROLE_CHOIR')}">
+                          <i onclick="getUserDetail(this)" th:id="${user.id}+'$#'+${user.name}" class="fa fa-remove" style="font-size: larger;" data-bs-toggle="modal" data-bs-target="#del" aria-hidden="true"></i>
+                       </div>
+                  </td>
+                   <!-- Add more items as needed -->
+                 </tbody>
+               </table>
+             </td>
+           </tr>
+         </tbody>
+   </table>
+  </div>
+  <script>
+    function getDetail(btn)
+    {
+      var detail =btn.getAttribute('id').split('&');
+      document.getElementById('cid').value = detail[0];
+      document.getElementById('name').value = detail[1];
+      document.getElementById('description').innerHTML = detail[2];
+    }
+  </script>
+  </section>
+    <!--  -->
+          </div>          
+            </div>
+        </div>
+        <!-- modal -->
+         <!-- add -->
+         <div class="modal fade" id="add" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalTitleId">Add Choir</h5>
+                          <button type="button" class="fa fa-close btn-outline-danger border-0 rounded-pill p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form class="modal-body p-2" enctype="multipart/form-data" method="post" action="/church/choir">
+                      <div>
+                          <input type="hidden" name="church" th:value="${churchAdmin.church.id}">
+                          <label class="fw-border text-dark">Name</label>
+                          <input type="text" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="name" id="" placeholder="Enter choir name">
+                      </div>
+                      <div class="mb-3">
+                        <label for="" class="form-label">History</label>
+                        <textarea class="form-control border border-dark" placeholder="Enter History / some description here" name="history" ></textarea>
+                      </div>
+                      <div>
+                          <label class="fw-border text-dark">Choir Logo</label>
+                          <input type="file" accept="png" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" id="photo">
+                         <input type="hidden" name="logo" id="logo">
+                        </div>
+                          <script>
+                const input = document.getElementById('photo');
+                          input.addEventListener('change', function() {
+                            const file = input.files[0];
+                            
+                            if (file) {
+                              const reader = new FileReader();
+                              
+                              reader.onload = function(event) {
+                                const base64String = event.target.result.split(',')[1];
+                                document.getElementById('logo').value=base64String;
+                                // console.log(base64String);
+                              };
+                              
+                              reader.readAsDataURL(file);
+                            }
+                          });          
+                          </script>
+                      <div>
+                          <label for="">Born Date</label>
+                          <input type="date" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="startDate" id="">
+                      </div>
+                      <div class="modal-footer">
+                          <button type="submit" class="btn btn-outline-dark">Submit</button>
+                      </div>
+                  </form>
+                  
+              </div>
+          </div>
+      </div>
+      <!-- delete -->
+      <div class="modal fade" id="delete" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalTitleId">Delete Choir</h5>
+                          <button type="button" class="fa fa-close btn-outline-danger border-0 rounded-pill p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form class="modal-body p-2" method="post" th:action="@{'/choir/choir/delete'}">
+                      <input type="hidden" name="id" id="choirId">
+                   Are you sure you want to delete "<b id="choirName"></b>" Choir?
+                      <div class="modal-footer">
+                          <button type="submit" class="btn btn-outline-dark">Delete Choir</button>
+                      </div>
+                  </form>
+                  
+              </div>
+          </div>
+      </div>
+      <!-- update -->
+      <div class="modal fade" id="update" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalTitleId">Update Choir</h5>
+                          <button type="button" class="fa fa-close btn-outline-danger border-0 rounded-pill p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form class="modal-body p-2" enctype="multipart/form-data" method="post" action="/church/choir">
+                      <input type="hidden" name="church" th:value="${churchAdmin.church.id}">
+                     <!-- choir id -->
+                      <input type="hidden" name="id" id="cid">
+                      <div>
+                          <label class="fw-border text-dark">Name</label>
+                          <input type="text" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="name" id="name" placeholder="Enter choir name">
+                      </div>
+                      <div class="mb-3">
+                        <label for="" class="form-label">History</label>
+                        <textarea class="form-control border border-dark" placeholder="Enter History / some description here" name="history" id="description"></textarea>
+                      </div>
+                      <div>
+                          <label class="fw-border text-dark">Choir Logo</label>
+                          <input onchange="updatePhoto()" type="file" accept="png" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" id="updatelogo">
+                          <input type="text" name="logo" id="mylogo">
+                      </div>
+                      <div>
+                          <label for="">Born Date</label>
+                          <input type="date" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="startDate" id="date">
+                      </div>
+                      <div class="modal-footer">
+                          <button type="submit" class="btn btn-outline-dark">Submit</button>
+                      </div>
+                  </form>
+                  <script>
+                 function updatePhoto() {
+                      const file = document.getElementById('updatelogo').files[0];
+                     
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                          const base64String = event.target.result.split(',')[1];
+                          document.getElementById('mylogo').value=base64String;
+                          // alert(base64String);
+                          // console.log(base64String);
+                        };
+                        
+                        reader.readAsDataURL(file);
+                      }
+                    }
+                  </script>
+              </div>
+          </div>
+      </div>
+    
+      <div class="modal fade" id="addpresident" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitleId">Add Duty</h5>
+              <button type="button" class="fa fa-close border-0 rounded-pill p-1 btn-outline-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/church/choir/duty" method="post">
+              <input type="hidden" name="user" id="userid">
+              <div>
+                <i class="fa fa-user-circle-o d-block text-center" style="font-size: xx-large;" aria-hidden="true"></i> 
+                <div class="text-center fw-bolder" id="uname"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-primary">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- del -->
+    <div class="modal fade" id="del" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitleId">Remove Duty</h5>
+              <button type="button" class="fa fa-close border-0 rounded-pill p-1 btn-outline-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/church/choir/duty/remove" method="post">
+              <input type="hidden" name="user" id="useridentity">
+              <div>
+                <i class="fa fa-user-circle-o d-block text-center" style="font-size: xx-large;" aria-hidden="true"></i> 
+                
+                <div>
+                  Are you sure you want to 
+                  remove <b id="username"></b> from District duty?
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-danger">Remove duty</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function getUserDetail(btn)
+      {
+        const details =btn.getAttribute('id').split('$#');
+        document.getElementById('userid').value = details[0];
+        document.getElementById('useridentity').value = details[0];
+        document.getElementById('uname').innerHTML = details[1];
+        document.getElementById('username').innerHTML = details[1];
+      }
+     
+    </script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

@@ -1,0 +1,383 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		<script defer th:src="@{'../../chart/index.js'}"></script>
+    <script defer th:src="@{'../../chart/demo.js'}"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+		<style>
+			.sidebar:hover{
+				color: white;
+				background-color: #151818;background-image: linear-gradient(#a09718, #14961bb6);
+				transition: all 0.5s linear;
+                animation: sidebar 0.01s ease-in-out 1;
+			}
+			@keyframes sidebar {
+				from{background-image: linear-gradient( #a4b92a, #2fb140d5 );}
+				to{background-image: linear-gradient( #8d8f22, #0d5f0d);}
+			}
+      .no-display{
+        display: none;
+      }
+      
+      @media print{
+        .no-display{display: block;}
+        .no-print{display:none;}
+      }
+		</style>
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(29, 139, 57, 0.767),rgba(236, 234, 65, 0.596)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+                <nav style="background-color: rgba(9, 87, 16, 0.945);"  id="sidebar" class="text-dark border-right text-left no-print">
+                        <div class="custom-menu">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle Menu</span>
+                            </button>
+                        </div>
+                    <div class="p-4">
+                      <h1 class="text-center">
+                        <div class="text-center">
+                            <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                        </div>
+                        <span th:text="${churchAdmin.name}">Portfolio Agency</span></a>
+                      </h1>
+                      <ul class="list-unstyled components mb-5">
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/church/home'}"><span class="fa fa-home mr-3"></span> DashBoard</a>
+                        </li>
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/church/choir'}"><i class="fa fa-music" aria-hidden="true"></i>  Choir</a>
+                        </li>
+                        <li class=" border-bottom  sidebar">
+                          <a class="text-light text-left" th:href="@{'/church/membership'}"><i class="fa fa-users" aria-hidden="true"></i>  Choir membership</a>
+                      </li>
+                        <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/church/event'}"><i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>Event</a>
+                            </li>
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/church/announcement'}"> <i class="fa fa-ship" aria-hidden="true"></i> Announcement</a>
+                          </li>
+                        <li class=" border-bottom   sidebar" style="background-color: #042504;">
+                          <a class="text-light text-left" th:href="@{'/church/finance'}"><i class="fa fa-dollar mr-3" aria-hidden="true"></i> Finance</a>
+                          </li>
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/church/user'}"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i> User</a>
+                      </li>
+                      <li class=" border-bottom   sidebar">
+                        <a class="text-light text-left" th:href="@{'/church/feedback'}"><i class="fa fa-feed" aria-hidden="true"></i>  Feedback</a>
+                        </li>
+                      <li  class=" border-bottom sidebar">
+                        <a class="text-light text-left" th:href="@{'/church/account'}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Account</a>
+                        </li> 
+                      <li class="border-bottom  sidebar">
+                      <a class="text-light text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                      </li>
+                    </ul>
+              </div>
+            </nav>
+    
+            <!-- Page Content  -->
+            <div id="content" class="p-4 p-md-5 pt-5">
+              <div class="text-center no-print">
+                  <img th:src="@{'/images/logo.png'}" class="bg-light rounded-pill p-1" width="50" style="float: right;">
+              </div>
+              <i class="fa fa-dashboard text-dark no-print" style="font-size: xx-large;" aria-hidden="true"></i>
+              <div ><h2 class="mb-2 mb-3 text-light no-print"><span th:text="${churchAdmin.church.name }"></span>'s Finance management </h2></div>
+      <div class="accordion accordion-flush no-print" id="accordionFlushExample no-print">
+        <div class="accordion-item">
+          <div class="accordion-header" id="flush-headingOne">
+            <button class=" accordion px-2 btn-outline-dark collapsed  rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+              <i class="fa fa-angle-double-right fw-bolder" style="font-size: x-large;" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <section class="mb-2">
+                <div class="bg-light col-md-12 m-auto rounded p-3 ">
+                  <h5><b class="text-primary">Church name</b>  <span th:text="${churchAdmin.church.name}"></span></h5>
+                  <h5><b class="text-primary">Total Choir Assigned Contributions</b>  <span th:text="${contributions}"></span></h5>
+                  <!-- <h5><b class="text-primary" th:if="churchContributions.size()>0">Total Church Assigned Contributions</b>  <span th:text="${churchContributions}"></span></h5> -->
+                  <div class="col-md-12 m-auto row">
+                    <div class="col-md-6 border border-transparent">
+                        <h5>Choir contributions</h5>
+                    <div><canvas class="col-sm-9" id="employee"></canvas></div>
+                    </div>
+                    <div class="col-md-6 border border-transparent">
+                        <h5>Church contributions</h5>
+                    <div><canvas class="col-sm-9" id="employee"></canvas></div>
+                    </div>
+                  </div>
+                </div>
+            </section>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+             <!-- Body -->
+            <div class="no-print">
+              <i onclick="getDetail(this,'Add')" id="0#&" class="fa fa-plus-circle text-light" data-bs-toggle="modal" data-bs-target="#modalId" style="font-size: xx-large;" aria-hidden="true"></i>   
+              <i class="fa fa-print text-light mx-3" onclick="window.print()" style="font-size: xx-large;" aria-hidden="true"></i>
+            </div>
+             <!--  -->
+<section class="mt-5">
+  <div  class="row">
+    <div class="col-md-8 no-display">
+      <img th:src="@{'/images/logo.png'}" class="bg-light  p-1" width="100">
+      <span class="d-block">Seventh-Day-Adventist</span>
+    </div>
+    <div class="col-md-4 no-display">
+      <address>
+        <nav>Seventh-Day-Adventist</nav>
+        <nav><b>Date </b> <span id="date"></span></nav>
+        <nav><b>Name</b> <span th:text="${churchAdmin.name}"></span></nav>
+        <nav><b>Tel: </b> <span th:text="${churchAdmin.phoneNumber}"></span></nav>
+        <nav><i class="fa fa-map-marker" aria-hidden="true"></i> <span th:text="${churchAdmin.church.location}"></span></nav>
+        <nav>
+          
+        </nav>
+      </address>
+    </div>
+  </div>
+  <h2 class="text-center no-display"><span th:text="${churchAdmin.church.name}"></span> Choir financial</h2>
+  <div class="table-responsive-md no-print">
+   <table class="table table-striped-columns
+   table-hover	
+   table-borderless
+   table-primary
+   align-middle">
+       <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Total offer People</th>
+            <th>Action</th>
+        </tr>
+         </thead>
+         <tbody th:each="finance:${contributionpage.getContent()}" style="cursor: pointer;">
+           <tr data-bs-toggle="collapse" th:data-bs-target="'#category'+${finance.id}" aria-expanded="false" ariad>
+            <td scope="row" th:text="${finance.title}">Item</td>
+            <td>
+              <div><span th:text="${finance.description}"></span></div>
+              <i class="fa fa-caret-down d-block text-center" style="font-size: xx-large;" aria-hidden="true"></i>
+            </td>
+            <td>
+                <nav><i class="fa fa-calendar-check-o" aria-hidden="true"></i> <span th:text="${finance.startDate}"></span></nav>
+                <nav><i class="fa fa-calendar-minus-o" aria-hidden="true"></i> <span th:text="${finance.endDate}"></span></nav>
+            </td>
+            <td><span  th:text="${finance.amount}"></span> FRW</td>
+            <td th:text="${finance.offeredList.size()}"></td>
+            <td>
+                <i onclick="getDetail(this,'Update')" th:id="${finance.id}+'#&'+${finance.title}+'#&'+${finance.description}+'#&'+${finance.amount}" class="fa fa-trash text-danger m-2" data-bs-toggle="modal" data-bs-target="#del" style="font-size: x-large;" aria-hidden="true"></i>
+                <i onclick="getDetail(this,'Update')" th:id="${finance.id}+'#&'+${finance.title}+'#&'+${finance.description}+'#&'+${finance.amount}" data-bs-toggle="modal" data-bs-target="#modalId" class="fa fa-pencil m-2" style="font-size: x-large;" aria-hidden="true"></i>
+            </td>
+           </tr>
+           <tr th:id="'category'+${finance.id}" class="collapse table" >
+             <td colspan="6" class="table-light table-responsive-md">
+               <table class="table">
+                 <thead>
+                   <tr class="table-success">
+                    <th>User</th>
+                    <th>Contact</th>
+                    <th>Payment</th>
+
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr th:each="finance1:${finance.offeredList}">
+                     <th scope="row" th:text="${finance1.user.name}"></th>
+                     <td >
+                      <nav><i class="fa fa-envelope-square" aria-hidden="true"></i> <span th:text="${finance1.user.email}"></span></nav>
+                      <nav><i class="fa fa-phone" aria-hidden="true"></i> <span th:text="${finance1.user.phoneNumber}"></span></nav>
+                     </td>
+                     <td >
+                      <div><b>Amount</b> <span th:text="${finance1.amount}"></span> FRW</div>
+                      <i class="fa fa-code" aria-hidden="true"></i> <span th:text="${finance1.paymentCode}"></span>
+                     </td>
+                    
+                   </tr>
+                   <!-- Add more items as needed -->
+                 </tbody>
+               </table>
+             </td>
+           </tr>
+         </tbody>
+   </table>
+  </div>
+  <div class="table-responsive no-display">
+    <table class="table table-primary">
+      <thead>
+        <tr>
+          <th scope="col">Contribution title</th>
+          <th scope="col">User detail & Contribution</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="" th:each="finance:${churchContributions}">
+          <td scope="row" th:text="${finance.title}">R1C1</td>
+          <td>
+            <div th:if="${finance.offeredList.size()==0}">
+              <b>none</b>
+           </div>
+            <div th:if="${finance.offeredList.size()!=0}" th:each="offer:${finance.offeredList}" >
+              <div>
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i> <span th:text="${offer.user.name}"></span>
+              <div>
+                <i class="fa fa-money" aria-hidden="true"></i> <span th:text="${offer.amount}"></span>
+              </div>
+              </div>
+             </div>
+             
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <nav class="no-display"><b>Done at </b> <i id="printeddate"></i></nav>
+    <nav class="no-display">Printed By <span th:text="${churchAdmin.name}"></span></nav>
+  </div>
+  
+  </section>
+      <!--  -->
+            </div>
+             
+              </div>
+          </div>
+          <!-- modal -->
+  <section>
+      <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalTitleId"><span id="header"></span> Finance</h5>
+                          <button type="button" class="fa fa-close border-0 btn-outline-danger rounded-pill p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <form class="p-3" action="/church/finance" method="post">
+                        <input type="hidden" name="id" id="id">
+                          <div class="mb-3">
+                              <input type="hidden" name="church" th:value="${churchAdmin.church.id}">
+                              <label>Title</label>
+                              <input type="text" class="w-100 rounded" name="title" id="title">
+                          </div>
+                          <div class="mb-3">
+                            <label for="" class="form-label">Description</label>
+                            <textarea class="form-control border border-secondary" name="description" id="description" rows="3"></textarea>
+                          </div>
+                          <div class="mb-3">
+                            <label>Amount</label>
+                            <input type="number" class="w-100 rounded" name="amount" id="amount">
+                        </div>
+                          <div class="mb-3">
+                              <label>Start Date</label>
+                              <input type="date" class="w-100 rounded" name="startDate" id="startDate">
+                          </div>
+                          <div class="mb-3">
+                              <label>End Date</label>
+                              <input type="date" class="w-100 rounded" name="endDate" id="endDate">
+                          </div>
+                          <div class="modal-footer">
+                              <button type="submit" class="btn btn-outline-primary">Submit Finance</button>
+                          </div>
+                          
+                      </form>
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+      <!--  -->
+      <script>
+        function getDetail(info,data) {
+          document.getElementById('header').innerHTML =data;
+          const detail=info.getAttribute('id').split('#&');
+          document.getElementById('id').value=detail[0];
+          document.getElementById('title').value=detail[1];
+          document.getElementById('description').value=detail[2];
+          document.getElementById('amount').value=detail[3];
+          document.getElementById('Anname').innerHTML=detail[1];
+          document.getElementById('annid').value=detail[0];
+        }
+      </script>
+      <!-- modal -->
+<section>
+  <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="modalTitleId"><span  id="header"></span> Finance</h5>
+                      <button type="button" class="fa fa-close border-0 btn-outline-danger rounded-pill p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form class="p-3" action="/church/finance" method="post">
+                      <div class="mb-3">
+                        <input type="hidden"  value="0" name="id" id="id">
+                          <input type="hidden" name="choir" th:value="${churchAdmin.church.id}">
+                          <label>Title</label>
+                          <input type="text" class="w-100 rounded" name="title" id="title">
+                      </div>
+                      <div class="mb-3">
+                        <label for="" class="form-label">Description</label>
+                        <textarea class="form-control border border-secondary" name="description" id="description" rows="3"></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label>Amount</label>
+                        <input type="text" class="w-100 rounded" name="amount" id="amount" required>
+                    </div>
+                      <div class="mb-3">
+                          <label>Start Date</label>
+                          <input type="date" class="w-100 rounded" name="startDate" id="" required>
+                      </div>
+                      <div class="mb-3">
+                          <label>End Date</label>
+                          <input type="date" class="w-100 rounded" name="endDate" id="" required>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="submit" class="btn btn-outline-primary">Save Announcement</button>
+                      </div>
+                      
+                  </form>
+              </div>
+              
+          </div>
+      </div>
+  </div>
+<!-- delete -->
+</button>
+<div class="modal fade" id="del" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="modalTitleId">Delete Finance</h5>
+        <button type="button" class="fa fa-close border-0 btn-outline-danger p-1 rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form action="/church/finance/delete" method="post">
+        <input type="hidden" name="id" id="annid">
+        Are you sure you want to delete " <b id="Anname"></b>"
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-danger">Delete Finance</button>
+      </div>
+      </form>
+    </div>
+    
+  </div>
+</div>
+</div>
+</section>
+  </section>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

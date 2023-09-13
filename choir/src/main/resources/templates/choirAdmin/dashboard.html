@@ -1,0 +1,188 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script th:src="@{'../../appcharts/highchart.js'}"></script>
+    <script th:src="@{'../../appcharts/fileExporter.js'}"></script>
+    <script defer th:inline="javascript">
+      $(function(){
+      Highcharts.chart('container', {
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text:[[${choirAdmin.choir.name}]]+' memberships'
+          },
+          subtitle: {
+              text:[[${choirAdmin.choir.name}]]+' memberships'
+          },
+          xAxis: {
+              categories:[[${labels}]],
+              crosshair: true
+          },
+          yAxis: {
+              min: 0,
+              max:100,
+              title: {
+                  text: 'Percentage of user joins choir'
+              }
+          },
+          tooltip: {
+              headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+              pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+              '<td style="padding:0"><b>{point.y:.1f} K</b></td></tr>',
+              footerFormat: '</table>',
+              shared: true,
+              useHTML: true
+          },
+          plotOptions: {
+              column: {
+                  pointPadding: 0.2,
+                  borderWidth: 0,
+                  colorByPoint: true, 
+              }
+          },
+          series: [{
+              name: 'Choir membership report',
+              data: [[${dataSeries}]],
+          }]
+        });
+      });
+      </script>
+		<style>
+			.sidebar:hover{
+				color: white;
+				background-color: #151818;background-image: linear-gradient(#1843a0, #fefffeb6);
+				transition: all 0.5s linear;
+                animation: sidebar 0.01s ease-in-out 1;
+			}
+			@keyframes sidebar {
+				from{background-image: linear-gradient(rgba(13, 30, 126, 0.945), #ffffff79 );}
+				to{background-image: linear-gradient( #225a8f, #ffffff96);}
+			}
+		</style>
+    <script defer th:src="@{'../../chart/index.js'}"></script>
+    <script defer th:src="@{'../../chart/demo.js'}"></script>
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(13, 30, 126, 0.945),rgba(255, 255, 255, 0.932)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+                <nav style="background-color: rgba(13, 30, 126, 0.945);"  id="sidebar" class="text-dark border-right text-left">
+                        <div class="custom-menu">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle Menu</span>
+                            </button>
+                        </div>
+                    <div class="p-4">
+                      <h1 class="text-center">
+                        <div class="text-center">
+                            <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                        </div>
+                        <span th:text="${choirAdmin.name}">Portfolio Agency</span></a>
+                      </h1>
+                        <ul class="list-unstyled components mb-5">
+                          <li class=" border-bottom  sidebar">
+                              <a class="text-light text-left" th:href="@{'/choir/home'}"><span class="fa fa-home mr-3"></span> DashBoard</a>
+                          </li>
+                          <!-- <li class=" border-bottom   sidebar">
+                              <a class="text-light text-left" th:href="@{'/choir/repetoir'}"><i class="fa fa-calendar-o mr-3" aria-hidden="true"></i> Reptoir</a>
+                              </li> -->
+                            <li class=" border-bottom   sidebar">
+                              <a class="text-light text-left" th:href="@{'/choir/event'}"><i class="fa fa-google-plus-official mr-3" aria-hidden="true"></i> Event</a>
+                              </li>
+                          <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/choir/finance'}"><i class="fa fa-dollar mr-3" aria-hidden="true"></i> Finance</a>
+                            </li>
+                          <li class=" border-bottom  sidebar">
+                              <a class="text-light text-left" th:href="@{'/choir/user'}"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i> User</a>
+                        </li>
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/choir/membership'}"><i class="fa fa-user-plus mr-3" aria-hidden="true"></i> Membership Request</a>
+                          </li>
+                        
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/choir/announcement'}"><i class="fa fa-paint-brush mr-3" aria-hidden="true"></i> Announcement</a>
+                          </li>
+                          <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/choir/feedback'}"><i class="fa fa-feed" aria-hidden="true"></i> Feedback</a>
+                            </li>
+                        <li  class=" border-bottom sidebar">
+                          <a class="text-light text-left" th:href="@{'/choir/account'}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Account</a>
+                          </li> 
+                        <li class="border-bottom  sidebar">
+                        <a class="text-light text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                        </li>
+                      </ul>
+              </div>
+            </nav>
+    
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <div class="text-center">
+                <img th:src="@{'/images/logo.png'}" class="bg-light rounded-pill p-1" width="50" style="float: right;">
+            </div>
+            <div ><h2 class="mb-2 mb-3 text-light"><span th:text="${choirAdmin.choir.name}"></span>'s Dashboard </h2></div>
+    <section class="mb-2">
+        <div class="bg-light col-md-12 m-auto rounded p-3 ">
+          <h5><b class="text-primary"><i class="fa fa-map-marker" aria-hidden="true"></i> Church name</b>  <span th:text="${choirAdmin.church.name}"></span></h5>
+          <div class="col-md-12">
+            <div class="border border-transparent">
+          <div class="col-sm-11" id="container"></div>
+            </div> 
+          </div>
+          <!--  -->
+         
+        </div>
+        
+    </section>
+           <!-- Header -->
+    <section class="col-md-12 m-auto row mt-2">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Recent Invitation</h4>
+              <p class="card-text" th:if="${lastinvitation.getContent().size()==0}">No Invitation</p>
+              <p class="card-text" th:if="${lastinvitation.getContent().size()>0}">
+                <div th:each="invite:${lastinvitation.getContent()}">
+                  <span th:text="${invite.event.title}"></span> <span style="float: right;" class="mr-3"><i class="fa fa-calendar" aria-hidden="true"></i><span th:text="${invite.event.createDate}"></span></span>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Recent Contribution offered</h4>
+              <p class="card-text"th:if="${offeredContribution.getContent().size()==0}">No recent contribution</p>
+              <p th:if="${offeredContribution.getContent().size()>0}">
+                <div th:each="offer:${offeredContribution.getContent()}">
+                  <span th:text="${offer.contribution.title}"></span> <span style="float: right;" class="mr-3"><i class="fa fa-calendar" aria-hidden="true"></i><span th:text="${offer.createDate}"></span></span>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+    </section>
+    <!-- body -->
+          </div>
+           
+            </div>
+        </div>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

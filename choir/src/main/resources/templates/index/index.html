@@ -1,0 +1,95 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(252, 252, 253, 0.767),rgba(41, 64, 165, 0.596)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+              <nav style="background-color: rgba(41, 64, 165, 0.699);"  id="sidebar" class="text-dark border-right text-left">
+                <div class="custom-menu">
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                        <i class="fa fa-bars"></i>
+                        <span class="sr-only">Toggle Menu</span>
+                    </button>
+                </div>
+            <div class="p-4">
+              <h5 class="text-center">
+                <div class="text-center">
+                    <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                </div>
+                <span th:text="${user.name}">Portfolio Agency</span></a>
+              </h5>
+              <ul class="list-unstyled components mb-5">
+                <li class=" border-bottom  sidebar" >
+                  <a class="text-light fw-bolder text-left" th:href="@{'/user/home'}"><i class="fa fa-home mr-3"></i> DashBoard</a>
+                </li>
+                <li class=" border-bottom  sidebar" >
+                <a class="text-light fw-bolder text-left" th:href="@{'/user/event'}"><i class="fa fa-life-ring mr-3" aria-hidden="true"></i></span>Event</a>
+                </li>
+                <li class=" border-bottom   sidebar">
+                  <a class="text-light fw-bolder text-left" th:href="@{'/user/announcement'}"><i class="fa fa-calendar-check-o mr-3" aria-hidden="true"></i> Announcement</a>
+                  </li>
+                <li  class=" border-bottom   sidebar" >
+                <a class="text-light fw-bolder text-left" th:href="@{'/user/choir'}"> <i class="fa fa-music mr-3" aria-hidden="true"></i> Choirs</a>
+                </li>  
+                <li  class=" border-bottom   sidebar">
+                  <a class="text-light fw-bolder text-left" th:href="@{'/user/membership'}"><i class="fa fa-pencil mr-3" aria-hidden="true"></i>  Membership</a>
+                  </li> 
+                  <li  class=" border-bottom  sidebar">
+                      <a class="text-light fw-bolder text-left" th:href="@{'/user/account'}"><i class="fa fa-user-circle-o mr-3" aria-hidden="true"></i> Account</a>
+                      </li> 
+                <li class="border-bottom  sidebar">
+                <a class="text-light fw-bolder text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                </li>
+              </ul>
+      </div>
+              </nav>
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <i class="fa fa-dashboard text-dark" aria-hidden="true" style="font-size: xx-large;"></i>
+            <div><h1>Dashboard</h1></div>
+            <h4 class="mb-1"><span th:text="${user.church.name}"></span> Choirs</h4>
+            <div class="card text-light"  style="background-color: rgba(41, 64, 165, 0.596);" th:if="${choirList.size()==0}">
+              <div class="card-body text-center">
+                <h4 class="card-title text-light"><span th:text="${user.church.name}"></span> No Choir found</h4>
+                <p class="card-text"><i style="font-size: x-large;" class=" fa fa-thermometer-empty" aria-hidden="true"></i></p>
+              </div>
+            </div>
+            <div class="row col-md-12 m-auto">
+              <div class="col-md-6 card text-light mt-4 border border-transparent"  style="background-color: rgba(41, 64, 165, 0.596);" th:each="choir:${choirList}">
+                <div class="card-body">
+                  <h4 class="card-title text-light"><i class="fa fa-music" aria-hidden="true"></i> <span th:text="${choir.name}"></span> </h4>
+                  <img th:src="@{'data:image/png;base64,'+${choir.logo}}">
+                  <h4 class="card-title text-light">Choir president </h4>
+                  <div th:if="${choir.leader==null}">
+                    <div>No Choir president</div>
+                  </div>
+                  <div th:if="${choir.leader!=null}">
+                    <div><i class="fa fa-user-circle" aria-hidden="true"></i> <span th:text="${choir.leader.name}"></span></div>
+                    <div><i class="fa fa-phone-square" aria-hidden="true"></i> <span th:text="${choir.leader.phoneNumber}"></span></div>
+                    <div><i class="fa fa-envelope-o" aria-hidden="true"></i> <span th:text="${choir.leader.email}"></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+           
+            </div>
+        </div>
+<!-- modals -->
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

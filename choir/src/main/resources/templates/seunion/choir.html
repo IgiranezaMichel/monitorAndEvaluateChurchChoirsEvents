@@ -1,0 +1,300 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		<script defer th:src="@{'../../chart/index.js'}"></script>
+    <script defer th:src="@{'../../chart/demo.js'}"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+		<style>
+			.sidebar:hover{
+				color: white;
+				background-color: #151818;background-image: linear-gradient(#a09718, #14961bb6);
+				transition: all 0.5s linear;
+                animation: sidebar 0.01s ease-in-out 1;
+			}
+			@keyframes sidebar {
+				from{background-image: linear-gradient( #a4b92a, #2fb140d5 );}
+				to{background-image: linear-gradient( #8d8f22, #0d5f0d);}
+			}
+      .no-display{
+        display: none;
+      }
+      
+      @media print{
+        .no-display{display: block;}
+        .no-print{display:none;}
+      }
+		</style>
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(29, 139, 57, 0.767),rgba(236, 234, 65, 0.596)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+                <nav style="background-color: rgba(9, 87, 16, 0.945);"  id="sidebar" class="text-dark border-right text-left">
+                        <div class="custom-menu">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle Menu</span>
+                            </button>
+                        </div>
+                    <div class="p-4">
+                      <h1 class="text-center">
+                        <div class="text-center">
+                            <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                        </div>
+                        <span th:text="${seunion.name}">Portfolio Agency</span></a>
+                      </h1>
+                      <ul class="list-unstyled components mb-5">
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/union/home'}"><span class="fa fa-home mr-3"></span> DashBoard</a>
+                        </li>
+                        <li class=" border-bottom  sidebar">
+                          <a class="text-light text-left" th:href="@{'/union/church'}"><i class="fa fa-home mr-3"></i>Manage Church</a>
+                        </li>
+                        <li class=" border-bottom  sidebar" style="background: #033b03;">
+                            <a class="text-light text-left" th:href="@{'/union/choir'}"><i class="fa fa-music" aria-hidden="true"></i>  choir</a>
+                        </li>
+                        <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/union/event'}"><i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>Event</a>
+                            </li>
+                        <li class=" border-bottom   sidebar" >
+                          <a class="text-light text-left" th:href="@{'/union/announcement'}"> <i class="fa fa-ship" aria-hidden="true"></i> Announcement</a>
+                          </li>
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/union/finance'}"><i class="fa fa-dollar mr-3" aria-hidden="true"></i> Finance</a>
+                          </li>
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/union/user'}"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i> User</a>
+                      </li>
+                      <li class=" border-bottom   sidebar">
+                        <a class="text-light text-left" th:href="@{'/union/feedback'}"><i class="fa fa-feed" aria-hidden="true"></i>  Feedback</a>
+                        </li>
+                      <li  class=" border-bottom sidebar">
+                        <a class="text-light text-left" th:href="@{'/union/account'}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Account</a>
+                        </li> 
+                      <li class="border-bottom  sidebar">
+                      <a class="text-light text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                      </li>
+                    </ul>
+              </div>
+            </nav>
+    
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <div class="text-center no-print">
+                <img th:src="@{'/images/logo.png'}" class="bg-light rounded-pill p-1" width="50" style="float: right;">
+            </div>
+            <div class="no-print"><h2 class="mb-2 mb-3">RUM Choir management</h2></div>
+    <section class="mb-2">
+        <div class="bg-light col-md-12 row m-auto rounded p-3 no-print">
+          <div class="col-md-4">
+            <h5><b class="text-primary">Total Choirs</b>  <span th:text="${totalChoir.size()}"></span>
+            <i class="fa fa-print float-right" onclick="window.print()" style="font-size: larger;" aria-hidden="true"></i>
+            </h5>
+          </div>
+          <div class="col-md-4">
+            <h5>Number of Districts <span class="badge rounded-pill bg-primary">
+                <span th:text="${districtList.size()}"></span></span></h5> 
+           </div>
+           <div class="col-md-4">
+             <h5>Number of Churches <span class="badge rounded-pill bg-primary">
+                <span th:text="${churchList.size()}"></span></span></h5> 
+           </div>
+        </div>  
+    </section>
+           <!-- Header -->
+           <section>
+            <div class="container mt-5">
+                <table class="no-print table table-striped-columns
+                table-hover	
+                table-borderless
+                table-primary
+                align-middle">
+                  <thead>
+                    <tr>
+                        <th scope="col">Church Name</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Type</th>
+                    </tr>
+                  </thead>
+                  <tbody th:each="church:${fieldPage}">
+                    <tr  data-bs-toggle="collapse" th:data-bs-target="'#category'+${church.id}" aria-expanded="false" aria-controls="category1">
+                      <th scope="row" th:text="${church.name}"></th>
+                      <td>
+                        <div>
+                            <i class="fa fa-map-marker" aria-hidden="true"></i> <span th:text="${church.location}"></span>
+                        </div>
+                        <div class="text-center">
+                            <i class="fa fa-caret-down" style="font-size: xx-large;" aria-hidden="true"></i>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                            <span th:text="${church.type}"></span>
+                        </div>
+                        <div>
+                            <b>Total District</b> <span th:text="${church.churchList.size()}"></span>
+                        </div>
+                      </td>
+                     
+                    </tr>
+                    <tr th:id="category+${church.id}" class="collapse" data-bs-toggle="collapse" th:data-bs-target="'#category2'+${church.id}">
+                      <td colspan="4" class="table-light">
+                        <table class="table">
+                          <thead>
+                            <tr >
+                                <th scope="col">Church Name</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Type</th>
+                            </tr>
+                          </thead>
+                          <tbody th:each="church1:${church.churchList}">
+                            <tr >
+                                <th scope="row" th:text="${church1.name}"></th>
+                                <td>
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i> <span th:text="${church1.location}"></span>
+                                    <div class="text-center">
+                                        <i class="fa fa-caret-down" style="font-size: xx-large;" aria-hidden="true"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span th:text="${church1.type}"></span>
+                                    </div>
+                                    <div>
+                                        <b>Total Churches</b> <span th:text="${church1.churchList.size()}"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!--  -->
+                            <tr th:id="'category2'+${church.id}" class="collapse table-danger" >
+                                <td colspan="4">
+                                  <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Church Name</th>
+                                        <th scope="col">Location</th>
+                                        <th scope="col">Type</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody th:each="church2:${church1.churchList}">
+                                      <tr >
+                                        <th scope="row" th:text="${church2.name}">1-1</th>
+                                        <td >
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i><span th:text="${church2.location}"></span>
+                                        </td>
+                                        <td >
+                                            <div>
+                                                <i class="fa fa-home" aria-hidden="true"></i> <span th:text="${church2.type}"></span>
+                                            </div>
+                                            <div>
+                                                <b><i class="fa fa-music" aria-hidden="true"></i> Total choir</b> <span th:text="${church2.choirList.size()}"></span>
+                                            </div>
+                                        </td>
+                                      </tr>
+                                      <!--  -->
+                                       <tr>
+                                        
+                                       </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    <!-- Add more categories as needed -->
+                  </tbody>
+                </table>
+              </div>
+              <div  class="row">
+                <div class="col-md-8 no-display">
+                  <img th:src="@{'/images/logo.png'}" class="bg-light  p-1" width="100">
+                  <span class="d-block">Seventh-Day-Adventist</span>
+                </div>
+                <div class="col-md-4 no-display">
+                  <address>
+                    <nav>Seventh-Day-Adventist</nav>
+                    <nav><b>Date </b> <span id="date"></span></nav>
+                    <nav><b>Name</b> <span th:text="${seunion.name}"></span></nav>
+                    <nav><b>Tel: </b> <span th:text="${seunion.phoneNumber}"></span></nav>
+                    <nav><i class="fa fa-map-marker" aria-hidden="true"></i>Rwanda Union Mission</nav>
+                    <nav>
+                      
+                    </nav>
+                  </address>
+                </div>
+              </div>
+              <h2 class="text-center no-display">
+                Rwanda Union Mission choir Report</h2>
+            <div class="table-responsive no-display">
+              <table class="table table-primary">
+                <thead>
+                  <tr>
+                    <th scope="col">Choir</th>
+                    <th scope="col">President</th>
+                    <th scope="col">Location</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="" th:each="choir:${choirList}">
+                    <td scope="row">
+                     <i class="fa fa-music" aria-hidden="true"></i> <span th:text="${choir.name}"></span>
+                    </td>
+                    <td>
+                      <div th:if="${choir.leader!=null}">
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i> <span th:text="${choir.leader.name}"></span>
+                        <nav><i class="fa fa-phone-square" aria-hidden="true"></i> <span th:text="${choir.leader.phoneNumber}"></span></nav>
+                        <nav> <i class="fa fa-envelope-o" aria-hidden="true"></i> <span th:text="${choir.leader.email}"></span></nav>
+                      </div>
+                    </td>
+                    <td>
+                     <i class="fa fa-map-marker" aria-hidden="true"></i> <span th:text="${choir.church.churchId.churchId.name}"></span> / <span th:text="${choir.church.churchId.name}"></span> / <span th:text="${choir.church.name}"></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <nav class="no-display"><b>Done at </b> <i id="printeddate"></i></nav>
+                   <nav class="no-display">Printed By <span th:text="${seunion.name}"></span></nav>
+            </div>
+            
+         </section>
+          </div>
+           
+            </div>
+        </div>
+        <script>
+          const currentDate1 = new Date();
+          const addLeadingZero1 = value => (value < 10 ? `0${value}` : value);
+          const year1 = currentDate.getFullYear();
+          const month1 = addLeadingZero(currentDate.getMonth() + 1); 
+          const day1 = addLeadingZero(currentDate.getDate());
+          const formattedDate1 = `${day}-${month}-${year}`;
+          document.getElementById('printeddate').innerHTML=formattedDate1;
+          </script>
+          <script>
+            const currentDate = new Date();
+            const addLeadingZero = value => (value < 10 ? `0${value}` : value);
+            const year = currentDate.getFullYear();
+            const month = addLeadingZero(currentDate.getMonth() + 1); 
+            const day = addLeadingZero(currentDate.getDate());
+            const formattedDate = `${day}-${month}-${year}`;
+            document.getElementById('date').innerHTML =formattedDate;
+            document.getElementById('printeddate').innerHTML=formattedDate;
+            </script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

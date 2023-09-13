@@ -1,0 +1,226 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Account</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+		<style>
+			.sidebar:hover{
+				color: white;
+				background-color: #151818;background-image: linear-gradient(#a09718, #14961bb6);
+				transition: all 0.5s linear;
+                animation: sidebar 0.01s ease-in-out 1;
+			}
+			@keyframes sidebar {
+				from{background-image: linear-gradient( #a4b92a, #2fb140d5 );}
+				to{background-image: linear-gradient( #8d8f22, #0d5f0d);}
+			}
+		</style>
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(29, 139, 57, 0.767),rgba(150, 148, 24, 0.596)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+                <nav style="background-color: rgba(9, 87, 16, 0.945);"  id="sidebar" class="text-dark border-right text-left">
+                        <div class="custom-menu">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle Menu</span>
+                            </button>
+                        </div>
+                    <div class="p-4">
+                        <h1 class="text-center">
+                            <div class="text-center">
+                                <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                            </div>
+                            <span th:text="${seunion.name}">Portfolio Agency</span></a>
+                        </h1>
+                        <ul class="list-unstyled components mb-5">
+                            <li class=" border-bottom  sidebar">
+                                <a class="text-light text-left" th:href="@{'/union/home'}"><span class="fa fa-home mr-3"></span> DashBoard</a>
+                            </li>
+                            <li class=" border-bottom  sidebar">
+                              <a class="text-light text-left" th:href="@{'/union/church'}"><i class="fa fa-home mr-3"></i>Manage Church</a>
+                            </li>
+                            <li class=" border-bottom  sidebar">
+                                <a class="text-light text-left" th:href="@{'/union/choir'}"><i class="fa fa-music" aria-hidden="true"></i>  choir</a>
+                            </li>
+                            <li class=" border-bottom   sidebar">
+                                <a class="text-light text-left" th:href="@{'/union/event'}"><i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>Event</a>
+                                </li>
+                            <li class=" border-bottom   sidebar">
+                              <a class="text-light text-left" th:href="@{'/union/announcement'}"> <i class="fa fa-ship" aria-hidden="true"></i> Announcement</a>
+                              </li>
+                            <li class=" border-bottom   sidebar">
+                              <a class="text-light text-left" th:href="@{'/union/finance'}"><i class="fa fa-dollar mr-3" aria-hidden="true"></i> Finance</a>
+                              </li>
+                            <li class=" border-bottom  sidebar">
+                                <a class="text-light text-left" th:href="@{'/union/user'}"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i> User</a>
+                          </li>
+                          <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/union/feedback'}"><i class="fa fa-feed" aria-hidden="true"></i>  Feedback</a>
+                            </li>
+                          <li  class=" border-bottom sidebar" style="background: #033b03;">
+                            <a class="text-light text-left" th:href="@{'/union/account'}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Account</a>
+                            </li> 
+                          <li class="border-bottom  sidebar">
+                          <a class="text-light text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                          </li>
+                        </ul>
+              </div>
+            </nav>
+    
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <div class="text-center">
+                <img th:src="@{'/images/logo.png'}" class="bg-light rounded-pill p-1" width="50" style="float: right;">
+            </div>
+            <div><h2 class="mb-4">Account settings</h2></div>
+            <section class="col-md-8 m-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Account Settings</h4>
+                        <p class="card-text"><b>Name</b> <span th:text="${seunion.name}"></span></p>
+                        <p class="card-text"><b>Gender</b> <span th:text="${seunion.gender}"></span></p>
+                        <p class="card-text"><b>phoneNumber</b> <span th:text="${seunion.phoneNumber}"></span></p>
+                        <p class="card-text"><b>Email</b> <span th:text="${seunion.email}"></span></p>
+                    </div>
+                    <div class="text-center mb-3">
+                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#update">Update</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete">Delete</button>
+                    </div>
+                </div>
+                
+            </section>
+          </div>
+            </div>
+        </div>
+        <!-- modal -->
+      
+          <!-- update -->
+          <section>
+            <div class="modal fade" id="update" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header border-0">
+                      <h5 class="modal-title" id="modalTitleId"><b>Update information</b></h5>
+                        <button class="btn-outline-danger rounded-pill fs-1 fw-bolder border-0 btn-light" type="button"  data-bs-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body">
+                      <div>
+                        
+                      </div>
+                      <div>
+                        <form class="modal-body p-2" method="post" th:object="${seunion}" th:action="@{'/choir/duty/account'}">
+                          <input type="hidden" th:field="*{id}" name="id">
+                          <input type="hidden" th:field="*{role}" nam="role">
+                          <input type="hidden" th:field="*{church.id}" name="church">
+                          
+                          <div class="mb-3">
+                              <label class="fw-border text-dark">Name</label>
+                              <input th:field="*{name}" type="text" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="" id="" placeholder="Enter church name">
+                          </div>
+                          <div class="mb-3">
+                              <label for="" class="form-label">Gender</label>
+                              <select class="form-select w-100 p-2 text-center" th:selected="*{gender}" name="gender" required>
+                                  <option value="">--Select Gender--</option>
+                                  <option value="M">Male</option>
+                                  <option value="F">Female</option>
+                              </select>
+                          </div>
+                          <div class="mb-3">
+                              <label class="fw-border text-dark">Phone Number</label>
+                              <input th:field="*{phoneNumber}" type="text" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="" id="" placeholder="Enter phone number">
+                          </div>
+                          <div class="mb-3">
+                              <label class="fw-border text-dark">Email</label>
+                              <input th:field="*{email}" type="text" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="" id="" placeholder="Enter Email">
+                          </div>
+                          
+                          <div class="mb-3">
+                              <label class="fw-border text-dark">Username</label>
+                              <input th:field="*{username}" type="text" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="" id="" placeholder="Enter username">
+                          </div>
+                          <div class="mb-3">
+                              <label class="fw-border text-dark">Password</label>
+                              <input type="password" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="password" placeholder="Enter passsword">
+                          </div>
+                          <div class="mb-3">
+                              <label class="fw-border text-dark">Retype password</label>
+                              <input type="password" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="" id="" placeholder="Retype password">
+                          </div>
+                          <div class="modal-footer">
+                              <button type="submit" class="btn btn-outline-dark">Submit</button>
+                          </div>
+                      </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        <!-- delete -->
+        <div class="modal fade" id="delete" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">Delete Account</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form class="modal-body p-2">
+                       <b>Names</b> Are you sure you want to delete your account?
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-dark">Delete Account</button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- add -->
+        <div class="modal fade" id="add" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">Add Choir</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form class="modal-body p-4">
+                        <div class="mb-3">
+                            <label class="fw-border text-dark">Name</label>
+                            <input type="text" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="" id="" placeholder="Enter church name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-border text-dark">Born Date</label>
+                            <input type="date" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="" id="" placeholder="ex:Province/District/sector/cell">
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-border text-dark">President Email</label>
+                            <input type="email" class="w-100 border-top-0 border-right-0 border-left-0 border-bottom border-dark" name="" id="" placeholder="Enter choir President email">
+                        </div>
+                        <div class="mb-3">
+                          <label for="" class="form-label"><i class="fa fa-history" aria-hidden="true"></i> Description</label>
+                          <textarea class="form-control border border-dark" placeholder="Enter choir history" name="" id="" rows="3"></textarea>
+                        </div>
+                        <div>
+                            upload Logo<input type="file" name="" id="">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-dark">Submit</button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+        </section>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

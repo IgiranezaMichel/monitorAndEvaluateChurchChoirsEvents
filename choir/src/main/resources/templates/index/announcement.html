@@ -1,0 +1,105 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(252, 252, 253, 0.767),rgba(41, 64, 165, 0.596)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+              <nav style="background-color: rgba(41, 64, 165, 0.699);"  id="sidebar" class="text-dark border-right text-left">
+                <div class="custom-menu">
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                        <i class="fa fa-bars"></i>
+                        <span class="sr-only">Toggle Menu</span>
+                    </button>
+                </div>
+            <div class="p-4">
+              <h5 class="text-center">
+                <div class="text-center">
+                    <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                </div>
+                <span th:text="${user.name}">Portfolio Agency</span></a>
+              </h5>
+              <ul class="list-unstyled components mb-5">
+                <li class=" border-bottom  sidebar" >
+                  <a class="text-light fw-bolder text-left" th:href="@{'/user/home'}"><i class="fa fa-home mr-3"></i> DashBoard</a>
+                </li>
+                <li class=" border-bottom  sidebar" >
+                <a class="text-light fw-bolder text-left" th:href="@{'/user/event'}"><i class="fa fa-life-ring mr-3" aria-hidden="true"></i></span>Event</a>
+                </li>
+                <li class=" border-bottom   sidebar" style="background: #452799b6;">
+                  <a class="text-light fw-bolder text-left" th:href="@{'/user/announcement'}"><i class="fa fa-calendar-check-o mr-3" aria-hidden="true"></i> Announcement</a>
+                  </li>
+                <li  class=" border-bottom   sidebar" >
+                <a class="text-light fw-bolder text-left" th:href="@{'/user/choir'}"> <i class="fa fa-music mr-3" aria-hidden="true"></i> Choirs</a>
+                </li>  
+                <li  class=" border-bottom   sidebar">
+                  <a class="text-light fw-bolder text-left" th:href="@{'/user/membership'}"><i class="fa fa-pencil mr-3" aria-hidden="true"></i>  Membership</a>
+                  </li> 
+                  <li  class=" border-bottom  sidebar">
+                      <a class="text-light fw-bolder text-left" th:href="@{'/user/account'}"><i class="fa fa-user-circle-o mr-3" aria-hidden="true"></i> Account</a>
+                      </li> 
+                <li class="border-bottom  sidebar">
+                <a class="text-light fw-bolder text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                </li>
+              </ul>
+      </div>
+    </nav>
+    
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <h2 class="mb-4">Church Announcements</h2>
+            <section class="col-sm-12 m-auto">
+                <div class="card text-white col-md-12 bg-transparent border-0 mb-2">
+                    <div class="card-body rounded mb-2" style="background-color: rgba(41, 64, 165, 0.596);"
+                    th:each="ann:${announcementpage.getContent()}">
+                      <h6 class="card-title" th >Title <span th:text="${ann.title}"></span></h6>
+                      <div class="card-text">Description</div>
+                      <div class="p-2">
+                        <p class=" p-2 text-light border border-dark rounded" th:text="${ann.description}"></p>
+                      </div>
+                      <p class="card-text"><i class="fa fa-calendar-check-o" aria-hidden="true"></i><span th:text="${ann.startDate}"></span></p>
+                      <p class="card-text"><i class="fa fa-calendar-times-o" aria-hidden="true"></i><span th:text="${ann.endDate}"></span></p>
+                      <p class="card-text text-light" th:if="${!ann.referenceLink.isEmpty()}"><i class="fa fa-link" aria-hidden="true"></i> <a class="text-light" th:href="${ann.referenceLink}" target="_blank" rel="noopener noreferrer">Click here for more information</a></p>  
+                  </div>
+               </div>
+           </section>
+           <!-- pagination -->
+          <section class="m-auto col-md-2">
+            <nav aria-label="Page navigation">
+              Page <span th:text="${announcementpage.getNumber()+1}"></span> out of <span th:text="${announcementpage.getTotalPages()}"></span> pages
+            <span></span>
+              <ul class="pagination pagination-lg;">
+                <li class="page-item">
+                  <a class="page-link" th:href="${announcementpage.isFirst()}?'/user/announcement?page='+${announcementpage.getNumber()}:'/user/announcement?page='+${announcementpage.getNumber()-1}" aria-label="Previous">
+                    <span aria-hidden="true">Previous</span>
+                  </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#"><span th:text="${announcementpage.getNumber()+1}"></span></a></li>
+                
+                <li class="page-item">
+                  <a class="page-link" th:href="${announcementpage.isLast()}?'/user/announcement?page='+${announcementpage.getNumber()}:'/user/announcement?page='+${announcementpage.getNumber()+1}" aria-label="Next">
+                    <span aria-hidden="true">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+        </section>
+          </div>
+           
+            </div>
+        </div>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

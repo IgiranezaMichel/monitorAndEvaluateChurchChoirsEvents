@@ -1,0 +1,385 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+		<style>
+			.sidebar:hover{
+				color: white;
+				background-color: #151818;background-image: linear-gradient(#1843a0, #fefffeb6);
+				transition: all 0.5s linear;
+                animation: sidebar 0.01s ease-in-out 1;
+			}
+			@keyframes sidebar {
+				from{background-image: linear-gradient(rgba(13, 30, 126, 0.945), #ffffff79 );}
+				to{background-image: linear-gradient( #225a8f, #ffffff96);}
+			}
+		</style>
+    <script defer th:src="@{'../../chart/index.js'}"></script>
+    <script defer th:src="@{'../../chart/demo.js'}"></script>
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(13, 30, 126, 0.945),rgba(255, 255, 255, 0.932)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+                <nav style="background-color: rgba(13, 30, 126, 0.945);"  id="sidebar" class="text-dark border-right text-left">
+                        <div class="custom-menu">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle Menu</span>
+                            </button>
+                        </div>
+                    <div class="p-4">
+                      <h1 class="text-center">
+                        <div class="text-center">
+                            <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                        </div>
+                        <span th:text="${choirAdmin.name}">Portfolio Agency</span></a>
+                      </h1>
+                        <ul class="list-unstyled components mb-5">
+                          <li class=" border-bottom  sidebar">
+                              <a class="text-light text-left" th:href="@{'/choir/home'}"><span class="fa fa-home mr-3"></span> DashBoard</a>
+                          </li>
+                          <!-- <li class=" border-bottom   sidebar">
+                              <a class="text-light text-left" th:href="@{'/choir/repetoir'}"><i class="fa fa-calendar-o mr-3" aria-hidden="true"></i> Reptoir</a>
+                              </li> -->
+                            <li class=" border-bottom   sidebar" style="background-color: #071a44;">
+                              <a class="text-light text-left" th:href="@{'/choir/event'}"><i class="fa fa-google-plus-official mr-3" aria-hidden="true"></i> Event</a>
+                              </li>
+                          <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/choir/finance'}"><i class="fa fa-dollar mr-3" aria-hidden="true"></i> Finance</a>
+                          </li>
+                          <li class=" border-bottom  sidebar">
+                              <a class="text-light text-left" th:href="@{'/choir/user'}"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i> User</a>
+                        </li>
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/choir/membership'}"><i class="fa fa-user-plus mr-3" aria-hidden="true"></i> Membership Request</a>
+                          </li>
+                        
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/choir/announcement'}"><i class="fa fa-paint-brush mr-3" aria-hidden="true"></i> Announcement</a>
+                          </li>
+                          <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/choir/feedback'}"><i class="fa fa-feed" aria-hidden="true"></i> Feedback</a>
+                            </li>
+                        <li  class=" border-bottom sidebar">
+                          <a class="text-light text-left" th:href="@{'/choir/account'}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Account</a>
+                          </li> 
+                        <li class="border-bottom  sidebar">
+                        <a class="text-light text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                        </li>
+                      </ul>
+              </div>
+            </nav>
+    
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <div class="text-center">
+                <img th:src="@{'/images/logo.png'}" class="bg-light rounded-pill p-1" width="50" style="float: right;">
+            </div>
+            <div ><h2 class="mb-2 mb-3 text-light"><span th:text="${choirAdmin.choir.name }"></span>'s Event </h2></div>
+    <section class="mb-2">
+        <div class="bg-light col-md-12 m-auto rounded p-3 ">
+          <h5><b class="text-primary">Church name</b>  <span th:text="${choirAdmin.church.name}"></span></h5>
+            <div class="alert alert-primary alert-dismissible fade show" role="alert" th:if="${message.length!=0}">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <strong th:text="${message}">Alert Heading</strong>
+            </div>
+  
+        </div>
+    </section>
+           <!-- Header -->
+           <i onclick="getDetail(this,'Add me')" class="fa fa-plus-circle text-light" style="font-size: xx-large;" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#modalId"></i>
+           
+           <section>
+            <div class="table-responsive">
+              <table class="table table-striped
+              table-hover	
+              table-borderless
+              table-primary
+              align-middle">
+                <thead class="table-light">
+                  <caption>Table Name</caption>
+                  <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>participant</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody class="table-group-divider" th:each="event:${eventpage.getContent()}">
+                    <tr class="table-primary" data-bs-toggle="collapse" th:data-bs-target="'#category'+${event.id}">
+                      <td scope="row" th:text="${event.title}">Item</td>
+                      <td th:text="${event.description}">Item</td>
+                      <td >
+                        <span th:text="${event.participant}"></span>
+                        <div>
+                          <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </div>
+                      </td>
+                      <td>
+                        <nav><i class="fa fa-calendar-check-o" aria-hidden="true"></i> <span th:text="${event.startDate}"></span></nav>
+                        <nav><i class="fa fa-calendar-minus-o" aria-hidden="true"></i> <span th:text="${event.endDate}"></span></nav>
+                      </td>
+                      <td>
+                        <span class="position-relative" >
+                          <i onclick="getEventDetail(this)" th:id="${event.id}" class="fa fa-envelope-o" style="font-size: xx-large;" data-bs-toggle="modal" data-bs-target="#invite" aria-hidden="true"></i>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" th:text="${event.invitationList.size()}">
+                            99+
+                          </span>
+                        </span>
+                        <i class="fa fa-trash text-danger m-2" style="font-size: xx-large;" data-bs-toggle="modal" data-bs-target="#modalId" aria-hidden="true"></i>
+                        <i class="fa fa-pencil m-2" style="font-size: xx-large;"data-bs-toggle="modal" data-bs-target="#modalId" aria-hidden="true"></i>
+                      </td>
+                    </tr>
+                    <tr th:id="'category'+${event.id}" class="collapse table" >
+                      <td colspan="6" class="table-light table-responsive-md">
+                        <table class="table">
+                          <thead>
+                            <tr class="table-success">
+                             <th>Choir</th>
+                             <th>President</th>
+                             <th>Approval</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr th:each="invitation:${event.invitationList}">
+                              <td scope="row">
+                                <i class="fa fa-music" aria-hidden="true"></i> <span th:text="${invitation.invitedChoir.name}"></span>
+                                <div>
+                                  <b>Member</b> <span class="badge bg-primary" th:text="${invitation.invitedChoir.users.size()}">New!</span>
+                                </div>
+                              </td>
+                               <td>
+                                <div th:if="${invitation.invitedChoir.leader!=null}">
+                                  <i class="fa fa-user-circle" aria-hidden="true"></i> <span th:text="${invitation.invitedChoir.leader.name}"></span>
+                                  <div>
+                                    <i class="fa fa-phone-square" aria-hidden="true"></i> <span th:text="${invitation.invitedChoir.leader.phoneNumber}"></span>
+                                  </div>
+                                  <div>
+                                    <i class="fa fa-envelope-o" aria-hidden="true"></i> <span th:text="${invitation.invitedChoir.leader.email}"></span>
+                                  </div>
+                                </div>
+                                <div th:if="${invitation.invitedChoir.leader==null}">
+                                  <i class="fa fa-battery-empty" aria-hidden="true"></i>
+                                </div>
+                               </td> 
+                             <td>
+                              <div th:if="${invitation.canceled}" class="text-center">
+                                <i class="fa fa-close fw-bolder" style="font-size: xx-large;" aria-hidden="true"></i>
+                                <div>canceled</div>
+                              </div>
+                              <div th:if="${invitation.isAllowed}" class="text-center">
+                                <i class="fa fa-check-circle-o text-success" style="font-size: xx-large;" aria-hidden="true"></i>
+                              </div>
+                              <div th:if="${!invitation.canceled&&!invitation.isAllowed}" class="text-center">
+                                <div class="fw-bolder">Progress...</div>
+                              </div>
+                             </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot> 
+                  </tfoot>
+              </table>
+            </div>
+            
+           </section>
+    <section class="col-sm-12 m-auto row mt-2">   
+    </section>
+          </div>
+           
+            </div>
+        </div>
+<script>
+  function getDetail(btn,data)
+  { document.getElementById('header').innerHTML=data;
+
+  }
+  function  getEventDetail(btn)
+  {
+    document.getElementById('eventid').value=btn.getAttribute('id');
+  }
+  function findChurchByChurchId()
+  {
+   var churchid=document.getElementById('field').value;
+   var xhr = new XMLHttpRequest();
+   const url='/api/church/'+churchid;
+   xhr.onreadystatechange=()=>{
+    if(xhr.readyState==4){
+      if(xhr.status==200)
+      {
+        var responseData = JSON.parse(xhr.responseText);
+        var selectElement = document.getElementById("district");
+        selectElement.innerHTML = "";
+      for (var i = 0; i < responseData.length; i++) {
+          var option = document.createElement("option");
+          option.value = responseData[i].id;  
+          option.text = responseData[i].name;    
+          selectElement.appendChild(option);
+      }
+      }
+      else alert(xhr.status);
+    }
+   }
+   xhr.open('GET',url,true);
+   xhr.send();
+  }
+  function findDistrictByChurchId()
+  {
+   var churchid=document.getElementById('district').value;
+   var xhr = new XMLHttpRequest();
+   const url='/api/church/'+churchid;
+   xhr.onreadystatechange=()=>{
+    if(xhr.readyState==4){
+      if(xhr.status==200)
+      {
+        var responseData = JSON.parse(xhr.responseText);
+        var selectElement = document.getElementById('church');
+        selectElement.innerHTML = "";
+      for (var i = 0; i < responseData.length; i++) {
+          var option = document.createElement("option");
+          option.value = responseData[i].id;  
+          option.text = responseData[i].name;    
+          selectElement.appendChild(option);
+      }
+      }
+      else alert(xhr.status);
+    }
+   }
+   xhr.open('GET',url,true);
+   xhr.send();
+  }
+  function findChurchChoirs()
+  {
+   var churchid=document.getElementById('church').value;
+   var xhr = new XMLHttpRequest();
+   const url='/api/choir/'+churchid;
+   xhr.onreadystatechange=()=>{
+    if(xhr.readyState==4){
+      if(xhr.status==200)
+      {
+        var responseData = JSON.parse(xhr.responseText);
+        var selectElement = document.getElementById('choir');
+        selectElement.innerHTML = "";
+      for (var i = 0; i < responseData.length; i++) {
+          var option = document.createElement("option");
+          option.value = responseData[i].id;  
+          option.text = responseData[i].name;    
+          selectElement.appendChild(option);
+      }
+      }
+      else alert(xhr.status);
+    }
+   }
+   xhr.open('GET',url,true);
+   xhr.send();
+  }
+</script>
+        <!-- modal -->
+        <section>
+          <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId"><span id="header"></span> Event</h5>
+                            <button type="button" class="fa fa-close border-0 btn-outline-danger rounded-pill p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="p-3" action="/choir/event" method="post">
+                            <div class="mb-3">
+                                <input type="hidden" name="choir" th:value="${choirAdmin.choir.id}">
+                                <label>Title</label>
+                                <input type="text" class="w-100 rounded" name="title" id="">
+                            </div>
+                            <div class="mb-3">
+                              <label>Participant</label>
+                              <input type="text" class="w-100 rounded" name="participant" id="">
+                          </div>
+                            <div class="mb-3">
+                              <label for="" class="form-label">Description</label>
+                              <textarea class="form-control border border-secondary" name="description" id="" rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label>Start Date</label>
+                                <input type="date" class="w-100 rounded" name="startDate" id="">
+                            </div>
+                            <div class="mb-3">
+                                <label>End Date</label>
+                                <input type="date" class="w-100 rounded" name="endDate" id="">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-outline-primary">Save Event</button>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        </section>
+       
+        <div class="modal fade" id="invite" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">Invite Choir</h5>
+                <button type="button" class="fa fa-close border-0 btn-outline-danger rounded-pill p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <!-- "/choir/invite" -->
+               <form action="/choir/invite" method="post">
+                <div class="mb-3">
+                  <input type="hidden" name="event" id="eventid">
+                  <label for="" class="form-label">Select Field</label>
+                  <select onchange="findChurchByChurchId()" class="form-select form-select-lg w-100"  id="field">
+                    <option value="">--Select Field--</option>
+                    <option th:each="field:${fieldList}" th:value="${field.id}" th:text="${field.name}"></option>
+                  </select>
+                 </div>
+                 <div class="mb-3">
+                  <label for="" class="form-label">Select District</label>
+                  <select onchange="findDistrictByChurchId()" class="form-select form-select-lg w-100" name="" id="district">
+                    <option value="">--Select District--</option>
+                  </select>
+                 </div>
+                 <div class="mb-3">
+                  <label for="" class="form-label">Select Church</label>
+                  <select onchange="findChurchChoirs()" class="form-select form-select-lg w-100" name="" id="church">
+                    <option value="">--Select Church--</option>
+                  </select>
+                 </div>
+                 <div class="mb-3">
+                  <label for="" class="form-label">Select Choir</label>
+                  <select class="form-select form-select-lg w-100" name="invitedChoir" id="choir">
+                    <option value="">--Select Choir--</option>
+                  </select>
+                 </div>
+                 <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o" aria-hidden="true"></i> Invite</button>
+                </div>
+               </form>
+               
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

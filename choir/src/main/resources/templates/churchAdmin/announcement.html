@@ -1,0 +1,222 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		<script defer th:src="@{'../../chart/index.js'}"></script>
+    <script defer th:src="@{'../../chart/demo.js'}"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+		<style>
+			.sidebar:hover{
+				color: white;
+				background-color: #151818;background-image: linear-gradient(#a09718, #14961bb6);
+				transition: all 0.5s linear;
+                animation: sidebar 0.01s ease-in-out 1;
+			}
+			@keyframes sidebar {
+				from{background-image: linear-gradient( #a4b92a, #2fb140d5 );}
+				to{background-image: linear-gradient( #8d8f22, #0d5f0d);}
+			}
+		</style>
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(29, 139, 57, 0.767),rgba(236, 234, 65, 0.596)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+                <nav style="background-color: rgba(9, 87, 16, 0.945);"  id="sidebar" class="text-dark border-right text-left">
+                        <div class="custom-menu">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle Menu</span>
+                            </button>
+                        </div>
+                    <div class="p-4">
+                      <h1 class="text-center">
+                        <div class="text-center">
+                            <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                        </div>
+                        <span th:text="${churchAdmin.name}">Portfolio Agency</span></a>
+                      </h1>
+                      <ul class="list-unstyled components mb-5">
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/church/home'}"><span class="fa fa-home mr-3"></span> DashBoard</a>
+                        </li>
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/church/choir'}"><i class="fa fa-music" aria-hidden="true"></i>  Choir</a>
+                        </li>
+                        <li class=" border-bottom  sidebar">
+                          <a class="text-light text-left" th:href="@{'/church/membership'}"><i class="fa fa-users" aria-hidden="true"></i>  Choir membership</a>
+                      </li>
+                        <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/church/event'}"><i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>Event</a>
+                            </li>
+                        <li class=" border-bottom   sidebar" style="background-color: #042504;">
+                          <a class="text-light text-left" th:href="@{'/church/announcement'}"> <i class="fa fa-ship" aria-hidden="true"></i> Announcement</a>
+                          </li>
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/church/finance'}"><i class="fa fa-dollar mr-3" aria-hidden="true"></i> Finance</a>
+                          </li>
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/church/user'}"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i> User</a>
+                      </li>
+                      <li class=" border-bottom   sidebar">
+                        <a class="text-light text-left" th:href="@{'/church/feedback'}"><i class="fa fa-feed" aria-hidden="true"></i>  Feedback</a>
+                        </li>
+                      <li  class=" border-bottom sidebar">
+                        <a class="text-light text-left" th:href="@{'/church/account'}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Account</a>
+                        </li> 
+                      <li class="border-bottom  sidebar">
+                      <a class="text-light text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                      </li>
+                    </ul>
+              </div>
+            </nav>
+    
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <div class="text-center">
+                <img th:src="@{'/images/logo.png'}" class="bg-light rounded-pill p-1" width="50" style="float: right;">
+            </div>
+            <i  class="fa fa-dashboard text-dark" style="font-size: xx-large;" aria-hidden="true"></i>
+            <div ><h2 class="mb-2 mb-3"><span th:text="${churchAdmin.church.name }"></span>'s Choir Announcement </h2></div>
+            <section class="mb-2">
+              <div class="bg-light col-md-12 m-auto row rounded p-3 ">
+                <div class="col-md-6">
+                  <h5><b class="text-primary">Total Church member</b>  <span th:text="${totalChurchmember.size()}"></span></h5>
+                </div>
+                <div class="col-md-6">
+                  <h5><b class="text-primary">Total Church Announcement</b>  <span th:text="${totalannouncement.size()}"></span></h5>
+                </div>
+              </div>  
+          </section>
+           <!-- Header -->
+           <i onclick="getDetail(this,'Add')" id="0#& #& #& #& #& #& #&" class="fa fa-plus-circle  text-light" style="font-size: xx-large;" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#modalId"></i>
+            <div class="alert alert-primary alert-dismissible fade show" role="alert" th:if="${message.length!=0}">
+              <button type="button" class="fa fa-close btn-outline-danger border-0 rounded-pill p-1" data-bs-dismiss="alert" aria-label="Close"></button>
+              <strong th:text="${message}">Alert Heading</strong> 
+            </div>
+            
+           <div class="table-responsive">
+            <table class="table table-sm
+            table-hover	
+            table-borderless
+            table-primary
+            align-middle">
+                <thead class="table-light">
+                    <caption>Table Name</caption>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <tr class="table-primary" th:each="announcement:${announcementpage.getContent()}">
+                            <td scope="row" th:text="${announcement.title}">Item</td>
+                            <td th:text="${announcement.description}">Item</td>
+                            <td>
+                                <nav><i class="fa fa-calendar-check-o" aria-hidden="true"></i> <span th:text="${announcement.startDate}"></span></nav>
+                                <nav><i class="fa fa-calendar-minus-o" aria-hidden="true"></i> <span th:text="${announcement.endDate}"></span></nav>
+                            </td>
+                            <td>
+                              <i onclick="getDetail(this,'Delete')" th:id="${announcement.id}+'#&'+${announcement.title}+'#&'+${announcement.description}" class="fa fa-trash m-1 text-danger" data-bs-toggle="modal" data-bs-target="#del" style="font-size: x-large;" aria-hidden="true"></i>
+                              <i onclick="getDetail(this,'Update')" th:id="${announcement.id}+'#&'+${announcement.title}+'#&'+${announcement.description}+'#&'+${announcement.referenceLink}" data-bs-toggle="modal" data-bs-target="#modalId" class="fa fa-pencil m-1" style="font-size: x-large;" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        
+                    </tfoot>
+            </table>
+          </div>
+          </div>
+           
+            </div>
+        </div>
+        <!-- create & update -->
+        <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalTitleId"><span id="header"></span> Announcement</h5>
+                          <button type="button" class="fa fa-close border-0 btn-outline-danger rounded-pill p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <form class="p-3" action="/church/announcement" method="post">
+                        <input type="hidden" name="id" id="id">
+                          <div class="mb-3">
+                              <input type="hidden" name="church" th:value="${churchAdmin.church.id}">
+                              <label>Title</label>
+                              <input type="text" class="w-100 rounded" name="title" id="title">
+                          </div>
+                          <div class="mb-3">
+                            <label for="" class="form-label">Description</label>
+                            <textarea class="form-control border border-secondary" name="description" id="description" rows="3"></textarea>
+                          </div>
+                          <div class="mb-3">
+                              <label>Reference Link</label>
+                              <input type="text" class="w-100 rounded" name="referenceLink" id="link">
+                          </div>
+                          <div class="mb-3">
+                              <label>Start Date</label>
+                              <input type="date" class="w-100 rounded" name="startDate" id="startDate">
+                          </div>
+                          <div class="mb-3">
+                              <label>End Date</label>
+                              <input type="date" class="w-100 rounded" name="endDate" id="endDate">
+                          </div>
+                          <div class="modal-footer">
+                              <button type="submit" class="btn btn-outline-primary">Save Announcement</button>
+                          </div>
+                          
+                      </form>
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+      <script>
+        function getDetail(info,data) {
+          document.getElementById('header').innerHTML =data;
+          const detail=info.getAttribute('id').split('#&');
+          document.getElementById('id').value=detail[0];
+          document.getElementById('title').value=detail[1];
+          document.getElementById('description').value=detail[2];
+          document.getElementById('link').value=detail[3];
+          document.getElementById('announcementName').innerHTML=detail[1];
+          document.getElementById('announcementId').value=detail[0];
+          
+        }
+      </script>
+      <!-- delete -->
+      <div class="modal fade" id="del" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalTitleId"><i class="fa fa-trash" aria-hidden="true"></i> Delete Announcement</h5>
+                <button type="button" class="fa fa-close rounded-pill border-0 btn-outline-danger p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+             <form action="/church/announcement/delete" method="post">
+              <input type="text" name="id" id="announcementId">
+              Are you sure you want to delete "<b id="announcementName"></b> "
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-danger">Delete Announcement</button>
+              </div>
+             </form>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

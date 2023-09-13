@@ -1,0 +1,203 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		<script defer th:src="@{'../../chart/index.js'}"></script>
+    <script defer th:src="@{'../../chart/demo.js'}"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+		<style>
+			.sidebar:hover{
+				color: white;
+				background-color: #151818;background-image: linear-gradient(#a09718, #14961bb6);
+				transition: all 0.5s linear;
+                animation: sidebar 0.01s ease-in-out 1;
+			}
+			@keyframes sidebar {
+				from{background-image: linear-gradient( #a4b92a, #2fb140d5 );}
+				to{background-image: linear-gradient( #8d8f22, #0d5f0d);}
+			}
+		</style>
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(29, 139, 57, 0.767),rgba(236, 234, 65, 0.596)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+                <nav style="background-color: rgba(9, 87, 16, 0.945);"  id="sidebar" class="text-dark border-right text-left">
+                        <div class="custom-menu">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle Menu</span>
+                            </button>
+                        </div>
+                    <div class="p-4">
+                      <h1 class="text-center">
+                        <div class="text-center">
+                            <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                        </div>
+                        <span th:text="${sefield.name}">Portfolio Agency</span></a>
+                      </h1>
+                      <ul class="list-unstyled components mb-5">
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/field/home'}"><span class="fa fa-home mr-3"></span> DashBoard</a>
+                        </li>
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/field/choir'}"><i class="fa fa-music" aria-hidden="true"></i>  Choir</a>
+                        </li>
+                        <li class=" border-bottom   sidebar">
+                            <a class="text-light text-left" th:href="@{'/field/event'}"><i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>Event</a>
+                            </li>
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/field/announcement'}"> <i class="fa fa-ship" aria-hidden="true"></i> Announcement</a>
+                          </li>
+                        <li class=" border-bottom   sidebar" style="background-color: #042504;">
+                          <a class="text-light text-left" th:href="@{'/field/finance'}"><i class="fa fa-dollar mr-3" aria-hidden="true"></i> Finance</a>
+                          </li>
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/field/user'}"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i> User</a>
+                      </li>
+                      <li class=" border-bottom   sidebar">
+                        <a class="text-light text-left" th:href="@{'/field/feedback'}"><i class="fa fa-feed" aria-hidden="true"></i>  Feedback</a>
+                        </li>
+                      <li  class=" border-bottom sidebar">
+                        <a class="text-light text-left" th:href="@{'/field/account'}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Account</a>
+                        </li> 
+                      <li class="border-bottom  sidebar">
+                      <a class="text-light text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                      </li>
+                    </ul>
+              </div>
+            </nav>
+    
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <div class="text-center">
+                <img th:src="@{'/images/logo.png'}" class="bg-light rounded-pill p-1" width="50" style="float: right;">
+            </div>
+            <div ><h2 class="mb-2 mb-3"><span th:text="${sefield.church.name}"></span>'s Choir Finance Dashboard </h2></div>
+    <section class="mb-2">
+        <div>
+          <section>
+            <div class="container mt-5">
+                <table class="table table-striped-columns
+                table-hover	
+                table-borderless
+                align-middle" style="background-color: #0d5f0d63;color: white;font-weight: bold;">
+                  <thead>
+                    <tr>
+                        <th scope="col">Field Name</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr  data-bs-toggle="collapse" th:data-bs-target="'#category'+${contributions.id}" aria-expanded="false" aria-controls="category1">
+                      <th scope="row" th:text="${contributions.name}"></th>
+                      <td>
+                        <div>
+                            <i class="fa fa-map-marker" aria-hidden="true"></i> <span th:text="${contributions.location}"></span>
+                        </div>
+                        <div class="text-center">
+                            <i class="fa fa-caret-down" style="font-size: xx-large;" aria-hidden="true"></i>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                            <span th:text="${contributions.type}"></span>
+                        </div>
+                        <div>
+                            <b>Total District</b> <span th:text="${contributions.churchList.size()}"></span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr th:id="category+${contributions.id}" class="collapse" data-bs-toggle="collapse" th:data-bs-target="'#category2'+${contributions.id}">
+                      <td colspan="4" style="background-color: #10911081;color: white;">
+                        <table class="table">
+                          <thead style="background-color: #527510ab;color: white;">
+                            <tr >
+                                <th scope="col">District Name</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Type</th>
+                            </tr>
+                          </thead>
+                          <tbody th:each="church1:${contributions.churchList}">
+                            <tr >
+                                <th scope="row" th:text="${church1.name}"></th>
+                                <td>
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i> <span th:text="${church1.location}"></span>
+                                    <div class="text-center">
+                                        <i class="fa fa-caret-down" style="font-size: xx-large;" aria-hidden="true"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span th:text="${church1.type}"></span>
+                                    </div>
+                                    <div>
+                                        <b>Total Contribution</b> <span th:text="${church1.contributionList.size()}"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!--  -->
+                            <tr th:id="'category2'+${contributions.id}" class="collapse" style="background-color: #1fa51ac7;color: white;">
+                                <td colspan="4">
+                                  <table class="table" style="background-color: #527510e3;color: white;">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Contribution name</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col"> Amount</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody th:each="finance:${church1.contributionList}">
+                                      <tr >
+                                        <th scope="row" th:text="${finance.title}">1-1</th>
+                                        <td >
+                                            <span th:text="${finance.description}"></span>
+                                        </td>
+                                        <td th:text="${finance.amount}">
+                                        </td>
+                                      </tr>
+                         
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                            <!-- Add more items as needed -->
+                            
+                            <!--  -->
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    <!-- Add more categories as needed -->
+                  </tbody>
+                </table>
+              </div>
+            
+         </section> 
+
+        </div>
+    </section>
+           <!-- Header -->
+    <section class="col-sm-12 m-auto row mt-2">
+       
+    </section>
+          </div>
+           
+            </div>
+        </div>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>

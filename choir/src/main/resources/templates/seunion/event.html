@@ -1,0 +1,163 @@
+<!doctype html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		<script defer th:src="@{'../../chart/index.js'}"></script>
+    <script defer th:src="@{'../../chart/demo.js'}"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" th:href="@{../../css/sidebar.css}">
+		<style>
+			.sidebar:hover{
+				color: white;
+				background-color: #151818;background-image: linear-gradient(#a09718, #14961bb6);
+				transition: all 0.5s linear;
+                animation: sidebar 0.01s ease-in-out 1;
+			}
+			@keyframes sidebar {
+				from{background-image: linear-gradient( #a4b92a, #2fb140d5 );}
+				to{background-image: linear-gradient( #8d8f22, #0d5f0d);}
+			}
+		</style>
+  </head>
+  <body >
+		
+		<div style="background: linear-gradient(150deg,rgba(29, 139, 57, 0.767),rgba(236, 234, 65, 0.596)) 25%;">
+            <div class="wrapper d-flex align-items-stretch">
+                <nav style="background-color: rgba(9, 87, 16, 0.945);"  id="sidebar" class="text-dark border-right text-left">
+                        <div class="custom-menu">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle Menu</span>
+                            </button>
+                        </div>
+                    <div class="p-4">
+                      <h1 class="text-center">
+                        <div class="text-center">
+                            <a><i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></a> 
+                        </div>
+                        <span th:text="${seunion.name}">Portfolio Agency</span></a>
+                      </h1>
+                      <ul class="list-unstyled components mb-5">
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/union/home'}"><span class="fa fa-home mr-3"></span> DashBoard</a>
+                        </li>
+                        <li class=" border-bottom  sidebar">
+                          <a class="text-light text-left" th:href="@{'/union/church'}"><i class="fa fa-home mr-3"></i>Manage Church</a>
+                        </li>
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/union/choir'}"><i class="fa fa-music" aria-hidden="true"></i>  choir</a>
+                        </li>
+                        <li class=" border-bottom   sidebar" style="background: #033b03;">
+                            <a class="text-light text-left" th:href="@{'/union/event'}"><i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>Event</a>
+                            </li>
+                        <li class=" border-bottom   sidebar" >
+                          <a class="text-light text-left" th:href="@{'/union/announcement'}"> <i class="fa fa-ship" aria-hidden="true"></i> Announcement</a>
+                          </li>
+                        <li class=" border-bottom   sidebar">
+                          <a class="text-light text-left" th:href="@{'/union/finance'}"><i class="fa fa-dollar mr-3" aria-hidden="true"></i> Finance</a>
+                          </li>
+                        <li class=" border-bottom  sidebar">
+                            <a class="text-light text-left" th:href="@{'/union/user'}"><i class="fa fa-user-circle mr-3" aria-hidden="true"></i> User</a>
+                      </li>
+                      <li class=" border-bottom   sidebar">
+                        <a class="text-light text-left" th:href="@{'/union/feedback'}"><i class="fa fa-feed" aria-hidden="true"></i>  Feedback</a>
+                        </li>
+                      <li  class=" border-bottom sidebar">
+                        <a class="text-light text-left" th:href="@{'/union/account'}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Account</a>
+                        </li> 
+                      <li class="border-bottom  sidebar">
+                      <a class="text-light text-left" th:href="@{'/logout'}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Logout</a>
+                      </li>
+                    </ul>
+              </div>
+            </nav>
+    
+            <!-- Page Content  -->
+          <div id="content" class="p-4 p-md-5 pt-5">
+            <div class="text-center">
+                <img th:src="@{'/images/logo.png'}" class="bg-light rounded-pill p-1" width="50" style="float: right;">
+            </div>
+            <div ><h2 class="mb-2 mb-3">RUM Event management</h2></div>
+    <section class="mb-2">
+        <div class="bg-light col-md-12 m-auto rounded p-3 ">
+          <h5><b class="text-primary">Total Churh Events</b>  <span th:text="${eventList.size()}"></span></h5>
+              <!-- <canvas class="col-sm-9" id="employee"></canvas> -->
+        </div>  
+    </section>
+           <!-- Header -->
+    <section class="mt-2">
+       <div class="table-responsive">
+        <table class="table table-striped-columns
+        table-hover	
+        table-borderless
+        table-primary
+        align-middle">
+          <thead class="table-light">
+            <caption>Table Name</caption>
+            <tr>
+              <th>Choir</th>
+              <th>Event title</th>
+              <th>description</th>
+              <th>Participant</th>
+              <th>Date</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr class="table-primary" th:each="event:${eventpage.getContent()}" th:class="${event.choir.leader==null}?'table-danger':'table-primary'">
+                <td scope="row">
+                  <nav><i class="fa fa-music" aria-hidden="true"></i> <span th:text="${event.choir.name}"></span></nav>
+                  <nav th:if="${event.choir.leader!=null}">
+                    <div><i class="fa fa-gavel" aria-hidden="true"></i> <span th:text="${event.choir.leader.name}"></span></div>
+                    <div><i class="fa fa-phone" aria-hidden="true"> <span th:text="${event.choir.leader.phoneNumber}"></span></i></div>
+                    <div><i class="fa fa-envelope-square" aria-hidden="true"></i> <span th:text="${event.choir.leader.email}"></span></div>
+                  </nav>
+                  <nav th:if="${event.choir.leader==null}">No choir president<span></span></nav>
+                </td>
+                <td th:text="${event.title}">Item</td>
+                <td th:text="${event.description}">Item</td>
+                <td th:text="${event.participant}"></td>
+                <td>
+                  <div><i class="fa fa-calendar-check-o" aria-hidden="true"></i> <span th:text="${event.startDate}"></span>-> <i class="fa fa-calendar-minus-o" aria-hidden="true"></i> <span th:text="${event.endDate}"></span></div>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <td colspan="5"> 
+                <nav aria-label="Page navigation">
+                  Page <span th:text="${eventpage.getNumber()+1}"></span> out of <span th:text="${eventpage.getTotalPages()}"></span> pages
+                <span></span>
+                  <ul class="pagination pagination-lg;">
+                    <li class="page-item">
+                      <a class="page-link" th:href="${eventpage.isFirst()}?'/union/event?page='+${eventpage.getNumber()}:'/union/event?page='+${eventpage.getNumber()-1}" aria-label="Previous">
+                        <span aria-hidden="true">Previous</span>
+                      </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#"><span th:text="${eventpage.getNumber()+1}"></span></a></li>
+                    
+                    <li class="page-item">
+                      <a class="page-link" th:href="${eventpage.isLast()}?'/union/event?page='+${eventpage.getNumber()}:'/union/event?page='+${eventpage.getNumber()+1}" aria-label="Next">
+                        <span aria-hidden="true">Next</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </td>
+            </tfoot>
+        </table>
+       </div>
+       
+    </section>
+          </div>
+           
+            </div>
+        </div>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+  </body>
+</html>
